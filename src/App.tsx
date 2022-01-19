@@ -1,39 +1,34 @@
-import {useState, useMemo} from 'react'
-import logo from './logo.svg';
-import './App.css';
+import { useState, useMemo } from 'react'
+import { Link } from 'react-router-dom'
 import { ipcRenderer } from 'electron'
+import logo from './logo.svg'
+import './App.css'
 
 function App() {
-  const [apiPort, setApiPort] = useState(0);
+  const [apiPort, setApiPort] = useState(0)
 
   useMemo(() => {
     if (apiPort === 0) {
-        if (ipcRenderer) {
-            ipcRenderer.on("apiDetails", ({}, arg:Number) => {
-                setApiPort(Number.parseInt(arg.toString())); // setting apiPort causes useMemo'd appGlobalClient to be re-evaluated
-            });
-            ipcRenderer.send("getApiDetails");
-        }
-        return null;
+      if (ipcRenderer) {
+        ipcRenderer.on('apiDetails', (_event, arg: Number) => {
+          setApiPort(Number.parseInt(arg.toString())) // setting apiPort causes useMemo'd appGlobalClient to be re-evaluated
+        })
+        ipcRenderer.send('getApiDetails')
+      }
+      return null
     }
-  }, [apiPort]);
-  
+  }, [apiPort])
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href={`http://localhost:${apiPort}/graphiql`}
-        >
+        <Link className="App-link" to="/">
           GraphQL-Port: {apiPort}
-        </a>
+        </Link>
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
