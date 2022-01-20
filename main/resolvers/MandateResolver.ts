@@ -7,10 +7,11 @@ import {
   Root,
   Ctx,
   Query,
+  Arg,
 } from 'type-graphql'
-import { Context } from './context'
-import { Mandate } from './Mandate'
-import { Person } from './Person'
+import { Context } from '../context'
+import { Mandate } from '../models/Mandate'
+import { Person } from '../models/Person'
 import { PersonCreateInput } from './PersonResolver'
 
 @InputType()
@@ -32,13 +33,7 @@ export class MandateResolver {
     @Root() mandate: Mandate,
     @Ctx() ctx: Context
   ): Promise<Person | null> {
-    return ctx.prisma.mandate
-      .findUnique({
-        where: {
-          id: mandate.id,
-        },
-      })
-      .accountHolder()
+    return ctx.getPerson(mandate.accountHolderId)
   }
 
   @FieldResolver()
@@ -46,17 +41,30 @@ export class MandateResolver {
     @Root() mandate: Mandate,
     @Ctx() ctx: Context
   ): Promise<Person[] | null> {
-    return ctx.prisma.mandate
-      .findUnique({
-        where: {
-          id: mandate.id,
-        },
-      })
-      .persons()
+    return new Promise(async function (resolve, reject) {
+      const persons = await ctx.getPersons()
+      if (!persons) {
+        reject('Could not get persons')
+      } else {
+        resolve(
+          persons.filter(
+            ({ authorizationMandateId }) =>
+              authorizationMandateId === mandate.id
+          )
+        )
+      }
+    })
   }
 
   @Query(() => [Mandate])
   async allMandates(@Ctx() ctx: Context) {
-    return ctx.prisma.mandate.findMany()
+    return await ctx.getMandates()
+  }
+
+  @Query((id) => Mandate) async mandateById(
+    @Arg('id') id: number,
+    @Ctx() ctx: Context
+  ) {
+    return await ctx.getMandate(id)
   }
 }

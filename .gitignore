@@ -4,6 +4,10 @@
 /prisma/migrations
 /prisma/dev.db
 
+# database
+/main/~$*
+/main/*.xlsx
+
 # dependencies
 /node_modules
 /.pnp

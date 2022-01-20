@@ -1,11 +1,16 @@
+import fs from 'fs'
+import path from 'path'
 import { ipcMain, BrowserWindow } from 'electron'
 import { ApolloServer } from 'apollo-server'
 import { GraphQLScalarType } from 'graphql'
 import { DateTimeResolver } from 'graphql-scalars'
 import * as tq from 'type-graphql'
 import { context } from './context'
-import { PersonResolver } from './PersonResolver'
-import { MandateCreateInput, MandateResolver } from './MandateResolver'
+import { PersonResolver } from './resolvers/PersonResolver'
+import {
+  MandateCreateInput,
+  MandateResolver,
+} from './resolvers/MandateResolver'
 
 const GraphQlApi = (window: BrowserWindow) => {
   let apiPort: Number = 0
@@ -15,10 +20,21 @@ const GraphQlApi = (window: BrowserWindow) => {
     apiPort = 5000
     console.log(`  ... Setting api port to ${apiPort}`)
 
-    let schema
+    // Get currenct directory
+    const basePath = process.env.PORTABLE_EXECUTABLE_DIR
+      ? process.env.PORTABLE_EXECUTABLE_DIR
+      : __dirname
+
+    // Get path to database
+    const databasePath = path.join(basePath, 'Data.xlsx')
+
+    // If database does not exist
+    if (!fs.existsSync(databasePath)) {
+      context.initDatabase()
+    }
 
     try {
-      schema = await tq.buildSchema({
+      let schema = await tq.buildSchema({
         resolvers: [PersonResolver, MandateResolver, MandateCreateInput],
         scalarsMap: [{ type: GraphQLScalarType, scalar: DateTimeResolver }],
       })

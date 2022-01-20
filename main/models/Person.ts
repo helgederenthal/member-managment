@@ -7,12 +7,6 @@ export class Person {
   @Field((type) => ID)
   id: number
 
-  @Field((type) => Date)
-  createdAt: Date
-
-  @Field((type) => Date)
-  updatedAt: Date
-
   @Field((type) => String)
   firstname: string
 
@@ -36,6 +30,7 @@ export class Person {
 
   @Field((type) => Mandate, { nullable: true })
   authorizationMandate?: Mandate | null
+  authorizationMandateId?: number
 
   @Field((type) => [Mandate], { nullable: true })
   issuedMandates?: [Mandate] | null
