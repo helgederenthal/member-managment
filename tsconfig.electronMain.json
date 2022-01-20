@@ -5,6 +5,9 @@
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "isolatedModules": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "strictPropertyInitialization": false,  /* Enable strict checking of property initialization in classes. */
         "jsx": "preserve",
         "lib": [
             "dom",

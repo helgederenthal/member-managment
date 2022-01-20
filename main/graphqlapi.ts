@@ -1,20 +1,46 @@
 import { ipcMain, BrowserWindow } from 'electron'
+import { ApolloServer } from 'apollo-server'
+import { GraphQLScalarType } from 'graphql'
+import { DateTimeResolver } from 'graphql-scalars'
+import * as tq from 'type-graphql'
+import { context } from './context'
+import { PersonResolver } from './PersonResolver'
+import { MandateCreateInput, MandateResolver } from './MandateResolver'
 
 const GraphQlApi = (window: BrowserWindow) => {
   let apiPort: Number = 0
 
   const initializeApi = async () => {
+    console.log('Initializing API ...')
     apiPort = 5000
+    console.log(`  ... Setting api port to ${apiPort}`)
+
+    let schema
+
+    try {
+      schema = await tq.buildSchema({
+        resolvers: [PersonResolver, MandateResolver, MandateCreateInput],
+        scalarsMap: [{ type: GraphQLScalarType, scalar: DateTimeResolver }],
+      })
+
+      console.log('  ... Starting Apollo Server')
+      new ApolloServer({ schema, context: context }).listen(
+        { port: apiPort },
+        () => console.log(`Server ready at: http://localhost:${apiPort}`)
+      )
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   ipcMain.on('getApiDetails', () => {
     if (apiPort !== 0) {
-      console.log('Send port ' + apiPort)
+      console.log(`Send port ${apiPort} to renderer`)
       window.webContents.send('apiDetails', apiPort)
     } else {
       initializeApi()
         .then(() => {
-          console.log('Send port ' + apiPort)
+          console.log(`Send port ${apiPort} to renderer`)
           window.webContents.send('apiDetails', apiPort)
         })
         .catch(() => {

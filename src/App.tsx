@@ -1,5 +1,4 @@
 import { useState, useMemo } from 'react'
-import { Link } from 'react-router-dom'
 import { ipcRenderer } from 'electron'
 import logo from './logo.svg'
 import './App.css'
@@ -19,13 +18,20 @@ function App() {
     }
   }, [apiPort])
 
+  const graphQlApiUrl = `http://localhost:${apiPort}`
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <Link className="App-link" to="/">
+        <a
+          className="App-link"
+          target="_blank"
+          rel="noreferrer"
+          href={graphQlApiUrl}
+        >
           GraphQL-Port: {apiPort}
-        </Link>
+        </a>
       </header>
     </div>
   )
