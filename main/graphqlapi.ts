@@ -1,5 +1,3 @@
-import fs from 'fs'
-import path from 'path'
 import { ipcMain, BrowserWindow } from 'electron'
 import { ApolloServer } from 'apollo-server'
 import { GraphQLScalarType } from 'graphql'
@@ -18,20 +16,6 @@ const GraphQlApi = (window: BrowserWindow) => {
   const initializeApi = async () => {
     console.log('Initializing API ...')
     apiPort = 5000
-    console.log(`  ... Setting api port to ${apiPort}`)
-
-    // Get currenct directory
-    const basePath = process.env.PORTABLE_EXECUTABLE_DIR
-      ? process.env.PORTABLE_EXECUTABLE_DIR
-      : __dirname
-
-    // Get path to database
-    const databasePath = path.join(basePath, 'Data.xlsx')
-
-    // If database does not exist
-    if (!fs.existsSync(databasePath)) {
-      context.initDatabase()
-    }
 
     try {
       let schema = await tq.buildSchema({
@@ -39,8 +23,11 @@ const GraphQlApi = (window: BrowserWindow) => {
         scalarsMap: [{ type: GraphQLScalarType, scalar: DateTimeResolver }],
       })
 
-      console.log('  ... Starting Apollo Server')
-      new ApolloServer({ schema, context: context }).listen(
+      // Create database context
+      const contextObject = new context()
+
+      console.log('Starting Apollo Server ...')
+      new ApolloServer({ schema, context: contextObject }).listen(
         { port: apiPort },
         () => console.log(`Server ready at: http://localhost:${apiPort}`)
       )
@@ -51,12 +38,12 @@ const GraphQlApi = (window: BrowserWindow) => {
 
   ipcMain.on('getApiDetails', () => {
     if (apiPort !== 0) {
-      console.log(`Send port ${apiPort} to renderer`)
+      console.log(`Sending port ${apiPort} to renderer`)
       window.webContents.send('apiDetails', apiPort)
     } else {
       initializeApi()
         .then(() => {
-          console.log(`Send port ${apiPort} to renderer`)
+          console.log(`Sending port ${apiPort} to renderer`)
           window.webContents.send('apiDetails', apiPort)
         })
         .catch(() => {
