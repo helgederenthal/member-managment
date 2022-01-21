@@ -45,14 +45,18 @@ export const context: Context = {
     const newWorkbook = utils.book_new()
     utils.book_append_sheet(newWorkbook, personsSheet, 'Persons')
     utils.book_append_sheet(newWorkbook, mandatesSheet, 'Mandates')
-    writeFile(newWorkbook, path.join(basePath, 'Data.xlsx'))
+    const filePath = path.join(basePath, 'Data.xlsx')
+    console.log(`Writing to file "${filePath}"`)
+    writeFile(newWorkbook, filePath)
   },
 
   getPersons: async () => {
     return new Promise(function (resolve, reject) {
       try {
         // Get workbook from file
-        const workbook = readFile(path.join(basePath, 'Data.xlsx'))
+        const filePath = path.join(basePath, 'Data.xlsx')
+        console.log(`Reading file "${filePath}"`)
+        const workbook = readFile(filePath)
         // Get data from persons sheet
         const data = utils.sheet_to_json(workbook.Sheets['Persons'])
 
@@ -105,7 +109,9 @@ export const context: Context = {
     return new Promise(function (resolve, reject) {
       try {
         // Get workbook from file
-        const workbook = readFile(path.join(basePath, 'Data.xlsx'))
+        const filePath = path.join(basePath, 'Data.xlsx')
+        console.log(`Reading file "${filePath}"`)
+        const workbook = readFile(filePath)
         // Get data from mandates sheet
         const data = utils.sheet_to_json(workbook.Sheets['Mandates'])
 
@@ -166,7 +172,11 @@ export const context: Context = {
         const newWorkbook = utils.book_new()
         utils.book_append_sheet(newWorkbook, personsSheet, 'Persons')
         utils.book_append_sheet(newWorkbook, mandatesSheet, 'Mandates')
-        writeFile(newWorkbook, path.join(basePath, 'Data.xlsx'))
+
+        const filePath = path.join(basePath, 'Data.xlsx')
+        console.log(`Writing to file "${filePath}"`)
+        writeFile(newWorkbook, filePath)
+
         resolve()
       } catch (error) {
         reject(error)
