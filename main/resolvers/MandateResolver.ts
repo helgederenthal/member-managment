@@ -22,7 +22,7 @@ export class MandateCreateInput {
   @Field()
   signedAt: Date
 
-  @Field((type) => [PersonCreateInput], { nullable: true })
+  @Field(() => [PersonCreateInput], { nullable: true })
   persons: [PersonCreateInput]
 }
 
@@ -61,7 +61,7 @@ export class MandateResolver {
     return await ctx.getMandates()
   }
 
-  @Query((id) => Mandate) async mandateById(
+  @Query(() => Mandate, { nullable: true }) async mandateById(
     @Arg('id') id: number,
     @Ctx() ctx: Context
   ) {
