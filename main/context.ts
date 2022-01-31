@@ -2,10 +2,12 @@ import fs from 'fs'
 import path from 'path'
 import { utils, readFile, writeFile } from 'xlsx'
 import { Person } from './models/Person'
+import { GetPersonsArgs } from './resolvers/PersonResolver'
 import { Mandate } from './models/Mandate'
+import _ from 'lodash'
 
 export interface Context {
-  getPersons(): Promise<Person[]>
+  getPersons(args: GetPersonsArgs): Promise<Person[]>
   getPerson(id: number | undefined): Promise<Person | null>
   getMandates(): Promise<Mandate[]>
   getMandate(id: number | undefined): Promise<Mandate | null>
@@ -122,8 +124,26 @@ export class context implements Context {
     writeFile(newWorkbook, this.databaseFilePath)
   }
 
-  async getPersons(): Promise<Person[]> {
-    const persons = this.persons
+  async getPersons(args: GetPersonsArgs): Promise<Person[]> {
+    let persons = this.persons
+    let additionalFilter
+
+    // If additional filter given
+    if (args.additionalFilter) {
+      // Parse filter
+      additionalFilter = JSON.parse(args.additionalFilter)
+      // Delete additional filter from args
+      delete args['additionalFilter']
+    }
+
+    // Filter persons by args
+    persons = _.filter(persons, args) as Person[]
+
+    // Filter persons by additional filter
+    if (additionalFilter) {
+      persons = _.filter(persons, additionalFilter)
+    }
+
     return new Promise(async function (resolve, reject) {
       resolve(persons)
     })

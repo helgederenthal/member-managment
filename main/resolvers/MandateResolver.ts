@@ -12,7 +12,7 @@ import {
 import { Context } from '../context'
 import { Mandate } from '../models/Mandate'
 import { Person } from '../models/Person'
-import { PersonCreateInput } from './PersonResolver'
+import { GetPersonsArgs, PersonCreateInput } from './PersonResolver'
 
 @InputType()
 export class MandateCreateInput {
@@ -42,7 +42,7 @@ export class MandateResolver {
     @Ctx() ctx: Context
   ): Promise<Person[] | null> {
     return new Promise(async function (resolve, reject) {
-      const persons = await ctx.getPersons()
+      const persons = await ctx.getPersons(new GetPersonsArgs())
       if (!persons) {
         reject('Could not get persons')
       } else {
