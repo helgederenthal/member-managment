@@ -14,7 +14,7 @@ import {
   Int,
 } from 'type-graphql'
 import { Context } from '../context'
-import { MandateCreateInput } from './MandateResolver'
+import { GetMandatesArgs, MandateCreateInput } from './MandateResolver'
 import { Person } from '../models/Person'
 import { Mandate } from '../models/Mandate'
 
@@ -83,9 +83,10 @@ export class PersonResolver {
   @FieldResolver()
   async issuedMandates(
     @Root() person: Person,
+    @Args(() => GetMandatesArgs) args: GetMandatesArgs,
     @Ctx() ctx: Context
   ): Promise<Mandate[]> {
-    return ctx.getIssuedMandatesOfPerson(person.id)
+    return ctx.getIssuedMandatesOfPerson(person.id, args)
   }
 
   @FieldResolver()
@@ -99,11 +100,12 @@ export class PersonResolver {
   @Query(() => [Person])
   async allPersons(@Args() args: GetPersonsArgs, @Ctx() ctx: Context) {
     const persons = await ctx.getPersons(args)
+    console.log('Args: ' + JSON.stringify(args))
     return persons
   }
 
   @Query(() => Person, { nullable: true })
-  async personById(@Arg('id') id: number, @Ctx() ctx: Context) {
+  async personById(@Arg('id') id: string, @Ctx() ctx: Context) {
     return await ctx.getPerson(id)
   }
 

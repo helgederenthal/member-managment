@@ -5,11 +5,11 @@ import { Person } from './Person'
 @ObjectType()
 export class Mandate {
   @Field((type) => ID)
-  id: number
+  id: string
 
   @Field((type) => Person, { nullable: true })
   accountHolder?: Person | null
-  accountHolderId: number
+  accountHolderId: string
 
   @Field((type) => Float)
   amount: number
