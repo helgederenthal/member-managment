@@ -8,11 +8,12 @@ import {
   Ctx,
   Query,
   Arg,
+  Args,
 } from 'type-graphql'
 import { Context } from '../context'
 import { Mandate } from '../models/Mandate'
 import { Person } from '../models/Person'
-import { PersonCreateInput } from './PersonResolver'
+import { GetPersonsArgs, PersonCreateInput } from './PersonResolver'
 
 @InputType()
 export class MandateCreateInput {
@@ -39,10 +40,11 @@ export class MandateResolver {
   @FieldResolver()
   persons(
     @Root() mandate: Mandate,
+    @Args(() => GetPersonsArgs) args: GetPersonsArgs,
     @Ctx() ctx: Context
   ): Promise<Person[] | null> {
     return new Promise(async function (resolve, reject) {
-      const persons = await ctx.getPersons()
+      const persons = await ctx.getPersons(args)
       if (!persons) {
         reject('Could not get persons')
       } else {

@@ -27,6 +27,7 @@
     "fs": "^0.0.1-security",
     "graphql": "^15.3.0",
     "graphql-scalars": "^1.14.1",
+    "lodash": "^4.17.21",
     "path": "^0.12.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -40,6 +41,7 @@
   "devDependencies": {
     "@craco/craco": "^6.4.3",
     "@types/electron": "^1.6.10",
+    "@types/lodash": "^4.14.178",
     "@types/node": "^16.11.17",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",

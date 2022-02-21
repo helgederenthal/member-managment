@@ -8,11 +8,45 @@ import {
   Field,
   FieldResolver,
   Root,
+  Args,
+  ArgsType,
+  ID,
+  Int,
 } from 'type-graphql'
 import { Context } from '../context'
 import { MandateCreateInput } from './MandateResolver'
 import { Person } from '../models/Person'
 import { Mandate } from '../models/Mandate'
+
+@ArgsType()
+export class GetPersonsArgs {
+  @Field(() => ID, { nullable: true })
+  id?: string
+
+  @Field(() => String, { nullable: true })
+  firstname?: string
+
+  @Field(() => String, { nullable: true })
+  lastname?: string
+
+  @Field(() => String, { nullable: true })
+  street?: string
+
+  @Field(() => Int, { nullable: true })
+  postcode?: number
+
+  @Field(() => String, { nullable: true })
+  city?: string
+
+  @Field(() => Date, { nullable: true })
+  dateOfBirth?: Date
+
+  @Field(() => Date, { nullable: true })
+  joinedAt?: Date
+
+  @Field(() => String, { nullable: true })
+  additionalFilter?: string
+}
 
 @InputType()
 export class PersonCreateInput {
@@ -63,8 +97,9 @@ export class PersonResolver {
   }
 
   @Query(() => [Person])
-  async allPersons(@Ctx() ctx: Context) {
-    return await ctx.getPersons()
+  async allPersons(@Args() args: GetPersonsArgs, @Ctx() ctx: Context) {
+    const persons = await ctx.getPersons(args)
+    return persons
   }
 
   @Query(() => Person, { nullable: true })
