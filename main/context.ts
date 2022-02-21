@@ -5,13 +5,17 @@ import { Person } from './models/Person'
 import { GetPersonsArgs } from './resolvers/PersonResolver'
 import { Mandate } from './models/Mandate'
 import _ from 'lodash'
+import { GetMandatesArgs } from './resolvers/MandateResolver'
 
 export interface Context {
-  getPersons(args: GetPersonsArgs): Promise<Person[]>
-  getPerson(id: number | undefined): Promise<Person | null>
-  getMandates(): Promise<Mandate[]>
-  getMandate(id: number | undefined): Promise<Mandate | null>
-  getIssuedMandatesOfPerson(personId: number): Promise<Mandate[]>
+  getPersons(filter: GetPersonsArgs): Promise<Person[]>
+  getPerson(id: string | undefined): Promise<Person | null>
+  getMandates(filter: GetMandatesArgs): Promise<Mandate[]>
+  getMandate(id: string | undefined): Promise<Mandate | null>
+  getIssuedMandatesOfPerson(
+    personId: string,
+    filter: GetMandatesArgs
+  ): Promise<Mandate[]>
 }
 
 type DbPerson = {
@@ -124,20 +128,19 @@ export class context implements Context {
     writeFile(newWorkbook, this.databaseFilePath)
   }
 
-  async getPersons(args: GetPersonsArgs): Promise<Person[]> {
-    let persons = this.persons
+  async getPersons(filter: GetPersonsArgs): Promise<Person[]> {
     let additionalFilter
 
     // If additional filter given
-    if (args.additionalFilter) {
+    if (filter.additionalFilter) {
       // Parse filter
-      additionalFilter = JSON.parse(args.additionalFilter)
+      additionalFilter = JSON.parse(filter.additionalFilter)
       // Delete additional filter from args
-      delete args['additionalFilter']
+      delete filter['additionalFilter']
     }
 
-    // Filter persons by args
-    persons = _.filter(persons, args) as Person[]
+    // Filter persons
+    let persons = _.filter(this.persons, filter) as Person[]
 
     // Filter persons by additional filter
     if (additionalFilter) {
@@ -149,7 +152,7 @@ export class context implements Context {
     })
   }
 
-  async getPerson(id: number | undefined): Promise<Person | null> {
+  async getPerson(id: string | undefined): Promise<Person | null> {
     const persons = this.persons
     return new Promise(async function (resolve, reject) {
       // If no id given
@@ -169,14 +172,16 @@ export class context implements Context {
     })
   }
 
-  async getMandates(): Promise<Mandate[]> {
-    const mandates = this.mandates
+  async getMandates(filter: GetMandatesArgs): Promise<Mandate[]> {
+    // Filter mandates
+    const mandates = _.filter(this.mandates, filter) as Mandate[]
+
     return new Promise(async function (resolve, reject) {
       resolve(mandates)
     })
   }
 
-  async getMandate(id: number | undefined): Promise<Mandate | null> {
+  async getMandate(id: string | undefined): Promise<Mandate | null> {
     const mandates = this.mandates
     return new Promise(async function (resolve, reject) {
       // If no id given
@@ -196,13 +201,21 @@ export class context implements Context {
     })
   }
 
-  async getIssuedMandatesOfPerson(id: number): Promise<Mandate[]> {
+  async getIssuedMandatesOfPerson(
+    id: string,
+    filter: GetMandatesArgs
+  ): Promise<Mandate[]> {
     const mandates = this.mandates
     return new Promise(async function (resolve, reject) {
       try {
-        const issuedMandates = mandates.filter(
+        // Get issued mandates
+        let issuedMandates = mandates.filter(
           (mandate) => mandate.accountHolderId === id
         )
+
+        // Filter results
+        issuedMandates = _.filter(issuedMandates, filter) as Mandate[]
+
         resolve(issuedMandates)
       } catch (error) {
         reject(error)

@@ -5,7 +5,7 @@ import { Mandate } from './Mandate'
 @ObjectType()
 export class Person {
   @Field((type) => ID)
-  id: number
+  id: string
 
   @Field((type) => String)
   firstname: string
@@ -30,7 +30,7 @@ export class Person {
 
   @Field((type) => Mandate, { nullable: true })
   authorizationMandate?: Mandate | null
-  authorizationMandateId?: number
+  authorizationMandateId?: string
 
   @Field((type) => [Mandate], { nullable: true })
   issuedMandates?: [Mandate] | null

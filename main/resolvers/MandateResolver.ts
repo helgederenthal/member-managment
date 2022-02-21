@@ -9,11 +9,26 @@ import {
   Query,
   Arg,
   Args,
+  ArgsType,
+  Float,
+  ID,
 } from 'type-graphql'
 import { Context } from '../context'
 import { Mandate } from '../models/Mandate'
 import { Person } from '../models/Person'
 import { GetPersonsArgs, PersonCreateInput } from './PersonResolver'
+
+@ArgsType()
+export class GetMandatesArgs {
+  @Field(() => ID, { nullable: true })
+  id?: string
+
+  @Field(() => Float, { nullable: true })
+  amount?: number
+
+  @Field(() => Date, { nullable: true })
+  signedAt?: Date
+}
 
 @InputType()
 export class MandateCreateInput {
@@ -59,12 +74,12 @@ export class MandateResolver {
   }
 
   @Query(() => [Mandate])
-  async allMandates(@Ctx() ctx: Context) {
-    return await ctx.getMandates()
+  async allMandates(@Args() args: GetMandatesArgs, @Ctx() ctx: Context) {
+    return await ctx.getMandates(args)
   }
 
   @Query(() => Mandate, { nullable: true }) async mandateById(
-    @Arg('id') id: number,
+    @Arg('id') id: string,
     @Ctx() ctx: Context
   ) {
     return await ctx.getMandate(id)
