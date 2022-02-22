@@ -100,7 +100,7 @@ export class PersonResolver {
   @Query(() => [Person])
   async allPersons(@Args() args: GetPersonsArgs, @Ctx() ctx: Context) {
     const persons = await ctx.getPersons(args)
-    console.log('Args: ' + JSON.stringify(args))
+    console.log('allPersons-Args: ' + JSON.stringify(args))
     return persons
   }
 

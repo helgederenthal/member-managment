@@ -12,6 +12,7 @@ import {
   InMemoryCache,
 } from '@apollo/client'
 import Dashboard from './Dashboard'
+import logo from './logo.svg'
 
 function App() {
   const [apiPort, setApiPort] = useState(0)
@@ -50,6 +51,11 @@ function App() {
       <ApolloProvider client={apolloClient}>
         <Titlebar />
         <div className="App-content">
+          <img
+            className="App-background-image"
+            src={logo}
+            alt="Logo for background"
+          />
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/persons" element={<Persons />} />

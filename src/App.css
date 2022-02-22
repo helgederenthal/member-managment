@@ -1,11 +1,12 @@
 .App {
   color: hsl(139, 44%, 54%);
   text-align: center;
+  background-color: hsla(220, 13%, 18%, 0.995);
 }
 
 .App-content {
-  height: calc(95vh - 29px);
-  background-color: #282c34;
+  height: calc(100vh - 59px);
+  background-color: rgba(40, 44, 52, 0);
 }
 
 .App-link {
@@ -19,8 +20,23 @@
   text-decoration: underline;
 }
 
+.App-background-image {
+  position: absolute;
+  top: 0vh;
+  right: -35vh;
+  width: 200vh;
+  position: fixed;
+  z-index: -1;
+
+  overflow: hidden;
+
+  /* Converted with https://codepen.io/sosuke/pen/Pjoqqp */
+  filter: invert(12%) sepia(25%) saturate(391%) hue-rotate(185deg)
+    brightness(97%) contrast(94%);
+}
+
 .App-footer {
-  height: 5vh;
+  height: 30px;
   background-color: rgb(36, 41, 46);
   display: flex;
   align-items: center;
