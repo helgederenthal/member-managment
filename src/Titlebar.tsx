@@ -7,15 +7,20 @@ import { useEffect, useState } from 'react'
 
 function Titlebar() {
   const { pathname } = useLocation()
+  const [dashboardClasses, setDashboardClasses] = useState('Link no-drag')
   const [personsClasses, setPersonsClasses] = useState('Link no-drag')
   const [mandatesClasses, setMandatesClasses] = useState('Link no-drag')
 
   useEffect(() => {
     // Reset states
+    setDashboardClasses('Link no-drag logoLink')
     setPersonsClasses('Link no-drag')
     setMandatesClasses('Link no-drag')
 
     switch (pathname) {
+      case '/':
+        setDashboardClasses('Link no-drag logoLinkActive')
+        break
       case '/persons':
         setPersonsClasses('Link no-drag active')
         break
@@ -23,13 +28,12 @@ function Titlebar() {
         setMandatesClasses('Link no-drag active')
         break
     }
-    console.log('pathname: ' + pathname)
   }, [pathname])
 
   return (
     <TitleBar>
       <div id="titlebar">
-        <Link className="Link no-drag" to="/">
+        <Link className={dashboardClasses} to="/">
           <img src={logo} className="Logo" alt="logo" />
         </Link>
         <Link className={personsClasses} to="/persons">

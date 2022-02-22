@@ -1,3 +1,7 @@
+#electron-app-title-bar {
+  border-bottom: 2px solid rgb(32, 32, 32);
+}
+
 #titlebar .no-drag {
   -webkit-app-region: no-drag;
   cursor: pointer !important;
@@ -28,10 +32,26 @@
   padding: 0px 10px;
   font-weight: 600;
   text-decoration: none;
+  margin-bottom: -4px;
+  border-left: 2px solid rgba(36, 41, 46, 0);
+  border-top: 2px solid rgba(36, 41, 46, 0);
+  border-right: 2px solid rgba(36, 41, 46, 0);
+  border-bottom: 3px solid rgba(36, 41, 46, 0);
+}
+
+#titlebar .logoLinkActive {
+  filter: invert(59%) sepia(86%) saturate(0%) hue-rotate(169deg)
+    brightness(103%) contrast(108%);
 }
 
 #titlebar .active {
   color: rgb(190, 190, 190) !important;
+  border-left: 2px solid rgb(32, 32, 32);
+  border-top: 2px solid rgb(32, 32, 32);
+  border-right: 2px solid rgb(32, 32, 32);
+  border-bottom: 3px solid rgb(36, 41, 46);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 #titlebar .Link:hover {
