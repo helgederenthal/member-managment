@@ -1,4 +1,5 @@
 .App {
+  color: hsl(139, 44%, 54%);
   text-align: center;
 }
 
@@ -20,7 +21,7 @@
 
 .App-footer {
   height: 5vh;
-  background-color: #303238;
+  background-color: rgb(36, 41, 46);
   display: flex;
   align-items: center;
   justify-content: center;

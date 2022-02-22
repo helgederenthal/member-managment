@@ -1,0 +1,74 @@
+#Persons {
+  color: rgb(190, 190, 190);
+  display: flex;
+  height: calc(95vh - 29px);
+  overflow: auto;
+}
+
+#Persons .table {
+  border-spacing: 0px;
+  margin: auto;
+}
+
+#Persons .table tr:hover {
+  background-color: rgb(80, 80, 80);
+}
+
+#Persons .table > .header {
+  background-color: rgb(25, 29, 32);
+  display: table-header-group;
+}
+
+#Persons .table > .header > tr > th {
+  color: hsl(139, 44%, 54%);
+  display: table-cell;
+  padding: 10px 20px;
+}
+
+#Persons .table > .header .firstname {
+  text-align: left;
+}
+
+#Persons .table > .header .lastname {
+  text-align: left;
+}
+
+#Persons .table > .header .street {
+  text-align: left;
+}
+
+#Persons .table > .header .city {
+  text-align: left;
+}
+
+#Persons .table > .body {
+  font-size: small;
+}
+
+#Persons td {
+  padding: 10px 20px;
+}
+
+#Persons .table tr:nth-child(even) {
+  background-color: rgb(34, 39, 44);
+}
+
+#Persons .table tr:nth-child(even):hover {
+  background-color: rgb(80, 80, 80);
+}
+
+#Persons .table > .body .firstname {
+  text-align: left;
+}
+
+#Persons .table > .body .lastname {
+  text-align: left;
+}
+
+#Persons .table > .body .street {
+  text-align: left;
+}
+
+#Persons .table > .body .city {
+  text-align: left;
+}
