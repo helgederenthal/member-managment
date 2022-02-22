@@ -1,0 +1,35 @@
+#titlebar .no-drag {
+  -webkit-app-region: no-drag;
+  cursor: pointer !important;
+}
+
+#titlebar {
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Open Sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  font-size: large;
+}
+
+#titlebar .Logo {
+  height: 26px;
+  margin: 4px 0px 0px 0px;
+  cursor: pointer !important;
+
+  /* Converted with https://codepen.io/sosuke/pen/Pjoqqp */
+  filter: invert(70%) sepia(53%) saturate(425%) hue-rotate(86deg)
+    brightness(85%) contrast(83%);
+}
+
+#titlebar .Link {
+  color: hsl(139, 44%, 54%);
+  padding: 0px 10px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+#titlebar .Link:hover {
+  text-decoration: underline;
+}

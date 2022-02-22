@@ -1,12 +1,10 @@
 import { useState, useMemo } from 'react'
 import { ipcRenderer } from 'electron'
-import { Link, Route, Routes } from 'react-router-dom'
-import logo from './logo.svg'
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
+import Titlebar from './Titlebar'
 import Persons from './Persons'
 import Mandates from './Mandates'
-import { TitleBar } from 'electron-react-titlebar/renderer'
-import 'electron-react-titlebar/assets/style.css'
 
 function App() {
   const [apiPort, setApiPort] = useState(0)
@@ -27,24 +25,10 @@ function App() {
 
   return (
     <div className="App">
-      <TitleBar>
-        <div className="TitlebarItems">
-          <Link className="App-link no-drag" to="/">
-            <img src={logo} className="App-logo" alt="logo" />
-          </Link>
-          <Link className="App-link no-drag" to="/persons">
-            Persons
-          </Link>
-          <Link className="App-link no-drag" to="/mandates">
-            Mandates
-          </Link>
-        </div>
-      </TitleBar>
+      <Titlebar />
       <div className="App-content">
         <Routes>
           <Route path="/persons" element={<Persons />} />
-        </Routes>
-        <Routes>
           <Route path="/mandates" element={<Mandates />} />
         </Routes>
       </div>

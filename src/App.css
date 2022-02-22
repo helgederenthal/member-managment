@@ -2,29 +2,6 @@
   text-align: center;
 }
 
-.no-drag {
-  -webkit-app-region: no-drag;
-  cursor: pointer !important;
-}
-
-.TitlebarItems {
-  height: 26px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer !important;
-}
-
-.App-logo {
-  height: 26px;
-  margin: 4px 0px 0px 0px;
-  cursor: pointer !important;
-
-  /* Converted with https://codepen.io/sosuke/pen/Pjoqqp */
-  filter: invert(70%) sepia(53%) saturate(425%) hue-rotate(86deg)
-    brightness(85%) contrast(83%);
-}
-
 .App-content {
   height: calc(95vh - 29px);
   background-color: #282c34;
@@ -33,7 +10,7 @@
 .App-link {
   color: hsl(139, 44%, 54%);
   padding: 0px 10px;
-  font-weight: bold;
+  font-weight: 600;
   text-decoration: none;
 }
 
