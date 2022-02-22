@@ -1,7 +1,10 @@
 import { useState, useMemo } from 'react'
 import { ipcRenderer } from 'electron'
+import { Link, Route, Routes } from 'react-router-dom'
 import logo from './logo.svg'
 import './App.css'
+import Persons from './Persons'
+import Mandates from './Mandates'
 
 function App() {
   const [apiPort, setApiPort] = useState(0)
@@ -22,8 +25,29 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      <div className="drag">
+        <header className="App-header">
+          <Link className="App-link no-drag" to="/">
+            <img src={logo} className="App-logo" alt="logo" />
+          </Link>
+          <Link className="App-link no-drag" to="/persons">
+            Persons
+          </Link>
+          <Link className="App-link no-drag" to="/mandates">
+            Mandates
+          </Link>
+        </header>
+      </div>
+      <div className="App-content">
+        <Routes>
+          <Route path="/persons" element={<Persons />} />
+        </Routes>
+        <Routes>
+          <Route path="/mandates" element={<Mandates />} />
+        </Routes>
+      </div>
+
+      <footer className="App-footer">
         <a
           className="App-link"
           target="_blank"
@@ -32,7 +56,7 @@ function App() {
         >
           GraphQL-Port: {apiPort}
         </a>
-      </header>
+      </footer>
     </div>
   )
 }

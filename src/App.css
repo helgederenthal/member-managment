@@ -2,37 +2,49 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.drag {
+  -webkit-app-region: drag;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.no-drag {
+  -webkit-app-region: no-drag;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  height: 5vh;
+  background-color: #303238;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+}
+
+.App-logo {
+  height: 4.5vh;
+
+  /* Converted with https://codepen.io/sosuke/pen/Pjoqqp */
+  filter: invert(70%) sepia(53%) saturate(425%) hue-rotate(86deg)
+    brightness(85%) contrast(83%);
+}
+
+.App-content {
+  height: 90vh;
+  background-color: #282c34;
 }
 
 .App-link {
-  color: #61dafb;
+  color: hsl(139, 44%, 54%);
+  padding: 0px 10px;
+  font-weight: bold;
+  text-decoration: none;
+}
+.App-link:hover {
+  text-decoration: underline;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App-footer {
+  height: 5vh;
+  background-color: #303238;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
