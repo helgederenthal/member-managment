@@ -5,6 +5,8 @@ import logo from './logo.svg'
 import './App.css'
 import Persons from './Persons'
 import Mandates from './Mandates'
+import { TitleBar } from 'electron-react-titlebar/renderer'
+import 'electron-react-titlebar/assets/style.css'
 
 function App() {
   const [apiPort, setApiPort] = useState(0)
@@ -25,8 +27,8 @@ function App() {
 
   return (
     <div className="App">
-      <div className="drag">
-        <header className="App-header">
+      <TitleBar>
+        <div className="TitlebarItems">
           <Link className="App-link no-drag" to="/">
             <img src={logo} className="App-logo" alt="logo" />
           </Link>
@@ -36,8 +38,8 @@ function App() {
           <Link className="App-link no-drag" to="/mandates">
             Mandates
           </Link>
-        </header>
-      </div>
+        </div>
+      </TitleBar>
       <div className="App-content">
         <Routes>
           <Route path="/persons" element={<Persons />} />
