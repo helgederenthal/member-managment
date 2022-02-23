@@ -49,9 +49,10 @@
   border-left: 2px solid rgb(32, 32, 32);
   border-top: 2px solid rgb(32, 32, 32);
   border-right: 2px solid rgb(32, 32, 32);
-  border-bottom: 3px solid rgb(36, 41, 46);
+  border-bottom: 4px solid hsl(220, 13%, 19%);
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
+  background-color: hsl(220, 13%, 19%);
 }
 
 #titlebar .Link:hover {
