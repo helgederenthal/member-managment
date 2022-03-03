@@ -47,8 +47,8 @@ function Persons() {
       <table className="table">
         <thead className="header">
           <tr>
-            <th className="firstname">Firstname</th>
             <th className="lastname">Lastname</th>
+            <th className="firstname">Firstname</th>
             <th className="street">Street</th>
             <th className="postcode">Postcode</th>
             <th className="city">City</th>
@@ -66,8 +66,8 @@ function Persons() {
               : ''
             return (
               <tr key={person.id}>
-                <td className="firstname">{person.firstname}</td>
                 <td className="lastname">{person.lastname}</td>
+                <td className="firstname">{person.firstname}</td>
                 <td className="street">{person.street}</td>
                 <td className="postcode">{person.postcode}</td>
                 <td className="city">{person.city}</td>
