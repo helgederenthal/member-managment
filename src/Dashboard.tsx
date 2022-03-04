@@ -1,5 +1,23 @@
+import { gql, useQuery } from '@apollo/client'
 import moment, { Moment } from 'moment'
 import './Dashboard.css'
+
+const start = moment(new Date('2021-08-28T00:00:00Z')).utc()
+const end = moment(new Date('2022-04-22T00:00:00Z')).utc()
+
+// // Init birthday lists
+// const birthdayHonors = [50, 60, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120]
+
+// Init membership lists
+const membershipYearsToHonor = [15, 25, 40, 50]
+const membershipHonors = new Map<number, Person[]>()
+
+function initMembershipHonors(membershipYearsToHonor: number[]) {
+  membershipHonors.clear()
+  for (const years of membershipYearsToHonor) {
+    membershipHonors.set(years, [])
+  }
+}
 
 function getAnniversariesOfDateInTimespan(
   date: Moment,
@@ -48,35 +66,93 @@ function getAnniversariesOfDateInTimespan(
   return anniversaries
 }
 
-function Dashboard() {
-  const homer = moment(new Date('1984-10-10T00:00:00Z')).utc()
-  const marge = moment(new Date('1987-07-08T00:00:00Z')).utc()
+const personsQuery = gql`
+  query {
+    allPersons {
+      id
+      firstname
+      lastname
+      street
+      postcode
+      city
+      dateOfBirth
+      joinedAt
+    }
+  }
+`
 
-  const start = moment(new Date('2021-05-15T00:00:00Z')).utc()
-  const end = moment(new Date('2022-08-06T00:00:00Z')).utc()
+interface Person {
+  id: string
+  firstname: string
+  lastname: string
+  street: string
+  postcode: number
+  city: string
+  dateOfBirth: string
+  joinedAt: string
+}
+
+function Dashboard() {
+  const { loading, error, data } = useQuery(personsQuery)
+  if (loading) return <div>Loading persons...</div>
+
+  if (error)
+    return (
+      <div>
+        Error loading persons
+        <br />
+        {error.message}
+      </div>
+    )
+
+  const persons: Person[] = data.allPersons
+
+  initMembershipHonors(membershipYearsToHonor)
+
+  for (const person of persons) {
+    // Get membership anniversaries for current person
+    const membershipAnniversaries = getAnniversariesOfDateInTimespan(
+      moment(person.joinedAt).utc(),
+      start,
+      end
+    )
+    for (const ma of membershipAnniversaries) {
+      if (Array.from(membershipHonors.keys()).includes(ma)) {
+        membershipHonors.get(ma)?.push(person)
+      }
+    }
+  }
 
   return (
-    <div>
-      {start.format('YYYY-MM-DD')} &nbsp;-&gt; {end.format('YYYY-MM-DD')}
-      <br />
-      <br />
-      <br />
-      {homer.format('YYYY-MM-DD')}
-      <br />
-      {getAnniversariesOfDateInTimespan(homer, start, end).map((anni) => {
-        return anni + ' '
-      })}
-      <br />
-      <br />
-      <br />
-      {marge.format('YYYY-MM-DD')}
-      <br />
-      {getAnniversariesOfDateInTimespan(marge, start, end).map((anni) => {
-        return anni + ' '
-      })}
-      <br />
-      <br />
-      <br />
+    <div id="Dashboard">
+      <h1>Membership Honors</h1>
+      <h3>
+        {start.format('YYYY-MM-DD')} &nbsp;-&gt; {end.format('YYYY-MM-DD')}
+      </h3>
+      <table className="table">
+        <thead className="header">
+          <tr>
+            <th className="years">Years</th>
+            <th className="lastname">Lastname</th>
+            <th className="firstname">Firstname</th>
+          </tr>
+        </thead>
+        <tbody className="body">
+          <>
+            {membershipYearsToHonor.map((key) => {
+              return membershipHonors.get(key)?.map((person) => {
+                return (
+                  <tr key={person.id}>
+                    <td className="years">{key}</td>
+                    <td className="lastname">{person.lastname}</td>
+                    <td className="firstname">{person.firstname}</td>
+                  </tr>
+                )
+              })
+            })}
+          </>
+        </tbody>
+      </table>
     </div>
   )
 }

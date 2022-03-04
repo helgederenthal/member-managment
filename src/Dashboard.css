@@ -1,0 +1,65 @@
+#Dashboard {
+  color: rgb(190, 190, 190);
+  height: calc(95vh - 29px);
+  overflow: auto;
+}
+
+#Dashboard h1 {
+  color: hsl(139, 44%, 54%);
+}
+
+#Dashboard h3 {
+  color: hsl(139, 44%, 54%);
+}
+
+#Dashboard .table {
+  border-spacing: 0px;
+  margin: auto;
+}
+
+#Dashboard .table .header {
+  background-color: rgb(25, 29, 32);
+  display: table-header-group;
+}
+
+#Dashboard .table th {
+  color: hsl(139, 44%, 54%);
+  display: table-cell;
+  padding: 10px 20px;
+}
+
+#Dashboard .table > .header .firstname {
+  text-align: left;
+}
+
+#Dashboard .table > .header .lastname {
+  text-align: left;
+}
+
+#Dashboard .table > .body {
+  font-size: small;
+}
+
+#Dashboard td {
+  padding: 10px 20px;
+}
+
+#Dashboard .table tr:hover {
+  background-color: rgb(80, 80, 80);
+}
+
+#Dashboard .table tr:nth-child(even) {
+  background-color: rgb(34, 39, 44);
+}
+
+#Dashboard .table tr:nth-child(even):hover {
+  background-color: rgb(80, 80, 80);
+}
+
+#Dashboard .table > .body .firstname {
+  text-align: left;
+}
+
+#Dashboard .table > .body .lastname {
+  text-align: left;
+}
