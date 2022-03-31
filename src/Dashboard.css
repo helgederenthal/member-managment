@@ -1,6 +1,6 @@
 #Dashboard {
   color: rgb(190, 190, 190);
-  height: calc(95vh - 29px);
+  height: calc(100vh - 59px);
   overflow: auto;
 }
 

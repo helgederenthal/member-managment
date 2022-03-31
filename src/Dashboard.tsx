@@ -2,7 +2,7 @@ import { gql, useQuery } from '@apollo/client'
 import moment, { Moment } from 'moment'
 import './Dashboard.css'
 
-const start = moment(new Date('2021-08-28T00:00:00Z')).utc()
+const start = moment(new Date('2021-08-29T00:00:00Z')).utc()
 const end = moment(new Date('2022-04-22T00:00:00Z')).utc()
 
 // // Init birthday lists
@@ -58,7 +58,8 @@ function getAnniversariesOfDateInTimespan(
     let year = ts[0].year()
     let dateInYear = moment(date).year(year)
 
-    if (dateInYear.isBetween(ts[0], ts[1])) {
+    // If date is in timespan (include start and end)
+    if (dateInYear.isBetween(ts[0], ts[1], undefined, '[]')) {
       anniversaries.push(year - date.year())
     }
   }
@@ -135,17 +136,33 @@ function Dashboard() {
             <th className="years">Years</th>
             <th className="lastname">Lastname</th>
             <th className="firstname">Firstname</th>
+            <th className="street">Street</th>
+            <th className="postcode">Postcode</th>
+            <th className="city">City</th>
+            <th className="dateOfBirth">Date of birth</th>
+            <th className="joinedAt">Member since</th>
           </tr>
         </thead>
         <tbody className="body">
           <>
             {membershipYearsToHonor.map((key) => {
               return membershipHonors.get(key)?.map((person) => {
+                let dateOfBirth = person.dateOfBirth
+                  ? moment(new Date(person.dateOfBirth)).format('YYYY-MM-DD')
+                  : ''
+                let joinedAt = person.joinedAt
+                  ? moment(new Date(person.joinedAt)).format('YYYY-MM-DD')
+                  : ''
                 return (
                   <tr key={person.id}>
                     <td className="years">{key}</td>
                     <td className="lastname">{person.lastname}</td>
                     <td className="firstname">{person.firstname}</td>
+                    <td className="street">{person.street}</td>
+                    <td className="postcode">{person.postcode}</td>
+                    <td className="city">{person.city}</td>
+                    <td className="dateOfBirth">{dateOfBirth}</td>
+                    <td className="joinedAt">{joinedAt}</td>
                   </tr>
                 )
               })
