@@ -148,7 +148,7 @@ function Dashboard() {
     }
   }
 
-  birthdays.sort((a, b) => (a[orderBirthdaysBy] > b[orderBirthdaysBy] ? 1 : -1))
+  birthdays.sort((a, b) => (a[orderBirthdaysBy] < b[orderBirthdaysBy] ? 1 : -1))
 
   return (
     <div id="Dashboard">

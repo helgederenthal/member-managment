@@ -1,11 +1,11 @@
 import { Link, useLocation } from 'react-router-dom'
-import { TitleBar } from 'electron-react-titlebar'
+import { TitleBar as ElectronTitlebar } from 'electron-react-titlebar'
 import 'electron-react-titlebar/assets/style.css'
 import './Titlebar.css'
 import logo from './logo.svg'
 import { useEffect, useState } from 'react'
 
-function Titlebar() {
+const Titlebar = () => {
   const { pathname } = useLocation()
   const [dashboardClasses, setDashboardClasses] = useState('Link no-drag')
   const [personsClasses, setPersonsClasses] = useState('Link no-drag')
@@ -31,7 +31,7 @@ function Titlebar() {
   }, [pathname])
 
   return (
-    <TitleBar>
+    <ElectronTitlebar>
       <div id="titlebar">
         <Link className={dashboardClasses} to="/">
           <img src={logo} className="Logo" alt="logo" />
@@ -43,7 +43,7 @@ function Titlebar() {
           Mandates
         </Link>
       </div>
-    </TitleBar>
+    </ElectronTitlebar>
   )
 }
 
