@@ -2,11 +2,18 @@ import { gql, useQuery } from '@apollo/client'
 import moment, { Moment } from 'moment'
 import './Dashboard.css'
 
-const start = moment(new Date('2021-08-29T00:00:00Z')).utc()
-const end = moment(new Date('2022-04-22T00:00:00Z')).utc()
+const membershipStart = moment(new Date('2021-08-29T00:00:00Z')).utc()
+const membershipEnd = moment(new Date('2022-04-22T00:00:00Z')).utc()
 
-// // Init birthday lists
-// const birthdayHonors = [50, 60, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120]
+const birthdayStart = moment(new Date('2023-01-01T00:00:00Z')).utc()
+const birthdayEnd = moment(new Date('2023-12-31T00:00:00Z')).utc()
+const orderBirthdaysBy = 'dateOfBirth'
+
+// Init birthday lists
+const birthdayYearsToHonor = [
+  50, 60, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120,
+]
+const birthdays: Person[] = []
 
 // Init membership lists
 const membershipYearsToHonor = [15, 25, 40, 50]
@@ -91,6 +98,7 @@ interface Person {
   city: string
   dateOfBirth: string
   joinedAt: string
+  years: number
 }
 
 function Dashboard() {
@@ -110,25 +118,44 @@ function Dashboard() {
 
   initMembershipHonors(membershipYearsToHonor)
 
+  // Clear array
+  birthdays.splice(0)
+
   for (const person of persons) {
     // Get membership anniversaries for current person
     const membershipAnniversaries = getAnniversariesOfDateInTimespan(
       moment(person.joinedAt).utc(),
-      start,
-      end
+      membershipStart,
+      membershipEnd
     )
     for (const ma of membershipAnniversaries) {
       if (Array.from(membershipHonors.keys()).includes(ma)) {
         membershipHonors.get(ma)?.push(person)
       }
     }
+
+    // Get birthday anniversaries for current person
+    const birthdayAnniversaries = getAnniversariesOfDateInTimespan(
+      moment(person.dateOfBirth).utc(),
+      birthdayStart,
+      birthdayEnd
+    )
+
+    for (const ba of birthdayAnniversaries) {
+      if (birthdayYearsToHonor.includes(ba)) {
+        birthdays.push({ ...person, years: ba })
+      }
+    }
   }
+
+  birthdays.sort((a, b) => (a[orderBirthdaysBy] > b[orderBirthdaysBy] ? 1 : -1))
 
   return (
     <div id="Dashboard">
       <h1>Membership Honors</h1>
       <h3>
-        {start.format('YYYY-MM-DD')} &nbsp;-&gt; {end.format('YYYY-MM-DD')}
+        {membershipStart.format('YYYY-MM-DD')} &nbsp;-&gt;&nbsp;{' '}
+        {membershipEnd.format('YYYY-MM-DD')}
       </h3>
       <table className="table">
         <thead className="header">
@@ -166,6 +193,50 @@ function Dashboard() {
                   </tr>
                 )
               })
+            })}
+          </>
+        </tbody>
+      </table>
+
+      <h1>Birthday Honors</h1>
+      <h3>
+        {birthdayStart.format('YYYY-MM-DD')} &nbsp;-&gt;&nbsp;{' '}
+        {birthdayEnd.format('YYYY-MM-DD')}
+      </h3>
+      <table className="table">
+        <thead className="header">
+          <tr>
+            <th className="years">Years</th>
+            <th className="lastname">Lastname</th>
+            <th className="firstname">Firstname</th>
+            <th className="street">Street</th>
+            <th className="postcode">Postcode</th>
+            <th className="city">City</th>
+            <th className="dateOfBirth">Date of birth</th>
+            <th className="joinedAt">Member since</th>
+          </tr>
+        </thead>
+        <tbody className="body">
+          <>
+            {birthdays.map((person) => {
+              let dateOfBirth = person.dateOfBirth
+                ? moment(new Date(person.dateOfBirth)).format('YYYY-MM-DD')
+                : ''
+              let joinedAt = person.joinedAt
+                ? moment(new Date(person.joinedAt)).format('YYYY-MM-DD')
+                : ''
+              return (
+                <tr key={person.id}>
+                  <td className="years">{person.years}</td>
+                  <td className="lastname">{person.lastname}</td>
+                  <td className="firstname">{person.firstname}</td>
+                  <td className="street">{person.street}</td>
+                  <td className="postcode">{person.postcode}</td>
+                  <td className="city">{person.city}</td>
+                  <td className="dateOfBirth">{dateOfBirth}</td>
+                  <td className="joinedAt">{joinedAt}</td>
+                </tr>
+              )
             })}
           </>
         </tbody>
