@@ -1,6 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import moment from 'moment'
-import './Persons.css'
+import Person from '../../interfaces/Person'
+import './PersonList.css'
 
 const persons = gql`
   query {
@@ -17,18 +18,7 @@ const persons = gql`
   }
 `
 
-interface Person {
-  id: string
-  firstname: string
-  lastname: string
-  street: string
-  postcode: number
-  city: string
-  dateOfBirth: string
-  joinedAt: string
-}
-
-function Persons() {
+const PersonList = () => {
   const { loading, error, data } = useQuery(persons)
 
   if (loading) return <div>Loading persons...</div>
@@ -82,4 +72,4 @@ function Persons() {
   )
 }
 
-export default Persons
+export default PersonList

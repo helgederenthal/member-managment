@@ -3,15 +3,15 @@ import { ipcRenderer } from 'electron'
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import Titlebar from './Titlebar'
-import Persons from './Persons'
-import Mandates from './Mandates'
+import Dashboard from './pages/Dashboard/Dashboard'
+import PersonList from './pages/PersonList/PersonList'
+import MandateList from './pages/MandateList/MandateList'
 import {
   ApolloClient,
   ApolloProvider,
   HttpLink,
   InMemoryCache,
 } from '@apollo/client'
-import Dashboard from './Dashboard'
 import logo from './logo.svg'
 
 function App() {
@@ -58,8 +58,8 @@ function App() {
           />
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/persons" element={<Persons />} />
-            <Route path="/mandates" element={<Mandates />} />
+            <Route path="/persons" element={<PersonList />} />
+            <Route path="/mandates" element={<MandateList />} />
           </Routes>
         </div>
 
