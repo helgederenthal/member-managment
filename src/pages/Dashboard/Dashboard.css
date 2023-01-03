@@ -31,11 +31,27 @@
   padding: 10px 20px;
 }
 
+#Dashboard .table > .header .years {
+  text-align: left;
+}
+
+#Dashboard .table > .header .dateOfBirthWithoutYear {
+  text-align: left;
+}
+
 #Dashboard .table > .header .firstname {
   text-align: left;
 }
 
 #Dashboard .table > .header .lastname {
+  text-align: left;
+}
+
+#Dashboard .table > .header .street {
+  text-align: left;
+}
+
+#Dashboard .table > .header .city {
   text-align: left;
 }
 
@@ -59,12 +75,41 @@
   background-color: rgb(80, 80, 80);
 }
 
+#Dashboard .table > .body .years {
+  padding: 10px 48px 10px 20px;
+}
+
+#Dashboard .table > .body .dateOfBirthWithoutYear {
+  text-align: left;
+  padding: 10px 48px 10px 20px;
+}
+
 #Dashboard .table > .body .firstname {
   text-align: left;
 }
 
 #Dashboard .table > .body .lastname {
   text-align: left;
+}
+
+#Dashboard .table > .body .street {
+  text-align: left;
+}
+
+#Dashboard .table > .body .postcode {
+  padding: 10px 48px 10px 20px;
+}
+
+#Dashboard .table > .body .city {
+  text-align: left;
+}
+
+#Dashboard .table > .body .dateOfBirth {
+  padding: 10px 48px 10px 20px;
+}
+
+#Dashboard .table > .body .joinedAt {
+  padding: 10px 48px 10px 20px;
 }
 
 #Dashboard #MembershipTable {
@@ -96,4 +141,12 @@
 #Dashboard #CountLabel {
   white-space: nowrap;
   margin: 0 8px 8px 8px;
+}
+
+#Dashboard .MuiTableSortLabel-root {
+  color: hsl(139, 44%, 54%);
+}
+
+#Dashboard .MuiTableSortLabel-icon {
+  color: hsl(139, 44%, 54%);
 }

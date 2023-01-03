@@ -1,7 +1,12 @@
+import { TableSortLabel } from '@mui/material'
 import moment from 'moment'
 import { useEffect, useState } from 'react'
 import Person from '../../interfaces/Person'
-import { getAnniversariesOfDateInTimespan } from '../../utilities'
+import {
+  getAnniversariesOfDateInTimespan,
+  Sorting,
+  sortPersons,
+} from '../../utilities'
 
 interface BirthdayTableProps {
   persons: Person[]
@@ -9,6 +14,11 @@ interface BirthdayTableProps {
 
 const BirthdayTable = ({ persons }: BirthdayTableProps) => {
   const [birthdayHonors, setBirthdayHonors] = useState<Person[]>([])
+
+  const [sorting, setSorting] = useState<Sorting>({
+    column: 'dateOfBirthWithoutYear',
+    direction: 'asc',
+  })
 
   const timeRangeStart = moment(new Date('2023-01-01T00:00:00Z')).utc()
   const timeRangeEnd = moment(new Date('2023-12-31T23:59:59Z')).utc()
@@ -31,16 +41,43 @@ const BirthdayTable = ({ persons }: BirthdayTableProps) => {
         }
       }
     }
-    setBirthdayHonors(newBirthdayHonors)
+    const orderedPersonList = sortPersons(newBirthdayHonors as Person[], {
+      column: 'dateOfBirthWithoutYear',
+      direction: 'asc',
+    })
+    setBirthdayHonors(orderedPersonList)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  // Reorder when sorting changes
+  useEffect(() => {
+    if (birthdayHonors && birthdayHonors.length > 0) {
+      setBirthdayHonors(sortPersons(birthdayHonors, sorting))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sorting])
+
+  // Event handler for table sorting
+  const changeSorting = (newColumn: string) => {
+    // Init new direction with 'asc'
+    let newDirection: 'asc' | 'desc' = 'asc'
+    // If table was already sorted by this column
+    if (sorting.column === newColumn) {
+      // Switch direction
+      if (sorting.direction === 'asc') {
+        newDirection = 'desc'
+      }
+    }
+    // Set new sorting
+    setSorting({ column: newColumn, direction: newDirection })
+  }
 
   return (
     <div id="BirthdayTable">
       <div id="TableTitle">Birthday Honors</div>
       <div id="TableHeader">
         <div id="TimeRangeArea">
-          {timeRangeStart.format('YYYY-MM-DD')} &nbsp;-&gt;&nbsp;{' '}
+          {timeRangeStart.format('YYYY-MM-DD')} &nbsp;&gt;&nbsp;{' '}
           {timeRangeEnd.format('YYYY-MM-DD')}
         </div>
         <div id="CountLabel">Count: {birthdayHonors.length}</div>
@@ -48,19 +85,95 @@ const BirthdayTable = ({ persons }: BirthdayTableProps) => {
       <table className="table">
         <thead className="header">
           <tr>
-            <th className="years">Years</th>
-            <th className="lastname">Lastname</th>
-            <th className="firstname">Firstname</th>
-            <th className="street">Street</th>
-            <th className="postcode">Postcode</th>
-            <th className="city">City</th>
-            <th className="dateOfBirth">Date of birth</th>
-            <th className="joinedAt">Member since</th>
+            <th className="years">
+              <TableSortLabel
+                active={sorting.column === 'years'}
+                direction={sorting.direction}
+                onClick={() => changeSorting('years')}
+              >
+                Age
+              </TableSortLabel>
+            </th>
+            <th className="dateOfBirthWithoutYear">
+              <TableSortLabel
+                active={sorting.column === 'dateOfBirthWithoutYear'}
+                direction={sorting.direction}
+                onClick={() => changeSorting('dateOfBirthWithoutYear')}
+              >
+                Month/Day
+              </TableSortLabel>
+            </th>
+            <th className="lastname">
+              <TableSortLabel
+                active={sorting.column === 'lastname'}
+                direction={sorting.direction}
+                onClick={() => changeSorting('lastname')}
+              >
+                Lastname
+              </TableSortLabel>
+            </th>
+            <th className="firstname">
+              <TableSortLabel
+                active={sorting.column === 'firstname'}
+                direction={sorting.direction}
+                onClick={() => changeSorting('firstname')}
+              >
+                Firstname
+              </TableSortLabel>
+            </th>
+            <th className="street">
+              <TableSortLabel
+                active={sorting.column === 'street'}
+                direction={sorting.direction}
+                onClick={() => changeSorting('street')}
+              >
+                Street
+              </TableSortLabel>
+            </th>
+            <th className="postcode">
+              <TableSortLabel
+                active={sorting.column === 'postcode'}
+                direction={sorting.direction}
+                onClick={() => changeSorting('postcode')}
+              >
+                Postcode
+              </TableSortLabel>
+            </th>
+            <th className="city">
+              <TableSortLabel
+                active={sorting.column === 'city'}
+                direction={sorting.direction}
+                onClick={() => changeSorting('city')}
+              >
+                City
+              </TableSortLabel>
+            </th>
+            <th className="dateOfBirth">
+              <TableSortLabel
+                active={sorting.column === 'dateOfBirth'}
+                direction={sorting.direction}
+                onClick={() => changeSorting('dateOfBirth')}
+              >
+                Date of birth
+              </TableSortLabel>
+            </th>
+            <th className="joinedAt">
+              <TableSortLabel
+                active={sorting.column === 'joinedAt'}
+                direction={sorting.direction}
+                onClick={() => changeSorting('joinedAt')}
+              >
+                Member since
+              </TableSortLabel>
+            </th>
           </tr>
         </thead>
         <tbody className="body">
           <>
             {birthdayHonors.map((person) => {
+              let dateOfBirthWithoutYear = person.dateOfBirth
+                ? moment(new Date(person.dateOfBirth)).format('MMMM, D.')
+                : ''
               let dateOfBirth = person.dateOfBirth
                 ? moment(new Date(person.dateOfBirth)).format('YYYY-MM-DD')
                 : ''
@@ -70,6 +183,9 @@ const BirthdayTable = ({ persons }: BirthdayTableProps) => {
               return (
                 <tr key={person.id}>
                   <td className="years">{person.years}</td>
+                  <td className="dateOfBirthWithoutYear">
+                    {dateOfBirthWithoutYear}
+                  </td>
                   <td className="lastname">{person.lastname}</td>
                   <td className="firstname">{person.firstname}</td>
                   <td className="street">{person.street}</td>

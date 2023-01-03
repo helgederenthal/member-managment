@@ -1,4 +1,57 @@
 import moment, { Moment } from 'moment'
+import Person from './interfaces/Person'
+
+export interface Sorting {
+  column: string
+  direction: 'asc' | 'desc'
+}
+
+export function sortPersons(persons: Person[], sorting: Sorting): Person[] {
+  // Init list of ordered persons
+  let orderedPersons: Person[] = []
+
+  // If persons are present
+  if (persons) {
+    try {
+      if (sorting.column === 'dateOfBirthWithoutYear') {
+        orderedPersons = [...persons].sort((a: Person, b: Person) => {
+          if (
+            sorting.direction === 'asc'
+              ? a.dateOfBirth.substring(5) > b.dateOfBirth.substring(5)
+              : a.dateOfBirth.substring(5) < b.dateOfBirth.substring(5)
+          )
+            return 1
+          return -1
+        })
+      } else {
+        // Order list of persons by string column
+        orderedPersons = [...persons].sort((a: Person, b: Person) => {
+          const valueA = (
+            a[sorting.column as keyof typeof a] as string
+          ).toLowerCase()
+          const valueB = (
+            b[sorting.column as keyof typeof b] as string
+          ).toLowerCase()
+          if (sorting.direction === 'asc' ? valueA > valueB : valueA < valueB)
+            return 1
+          return -1
+        })
+      }
+    } catch {
+      // Order list of persons by number column
+      orderedPersons = [...persons].sort((a: Person, b: Person) => {
+        const valueA = a[sorting.column as keyof typeof a] as number
+        const valueB = b[sorting.column as keyof typeof b] as number
+        if (sorting.direction === 'asc' ? valueA > valueB : valueA < valueB)
+          return 1
+        return -1
+      })
+    } finally {
+      return orderedPersons
+    }
+  }
+  return orderedPersons
+}
 
 export function getAnniversariesOfDateInTimespan(
   date: Moment,

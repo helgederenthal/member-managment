@@ -20,6 +20,9 @@
   },
   "dependencies": {
     "@apollo/client": "^3.5.9",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.11.3",
     "apollo-server": "^3.6.2",
     "class-validator": "^0.13.2",
     "concurrently": "^7.6.0",
