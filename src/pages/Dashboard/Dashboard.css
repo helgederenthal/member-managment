@@ -2,6 +2,9 @@
   color: rgb(190, 190, 190);
   height: calc(100vh - 59px);
   overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #Dashboard h1 {
@@ -62,4 +65,35 @@
 
 #Dashboard .table > .body .lastname {
   text-align: left;
+}
+
+#Dashboard #MembershipTable {
+  margin: 30px 20px;
+  width: max-content;
+}
+
+#Dashboard #BirthdayTable {
+  margin: 30px 20px;
+  width: max-content;
+}
+
+#Dashboard #TableTitle {
+  color: hsl(139, 44%, 54%);
+  font-size: 2em;
+  font-weight: bold;
+}
+
+#Dashboard #TableHeader {
+  display: flex;
+}
+
+#Dashboard #TimeRangeArea {
+  margin: 0 8px 8px 8px;
+  width: 100%;
+  text-align: left;
+}
+
+#Dashboard #CountLabel {
+  white-space: nowrap;
+  margin: 0 8px 8px 8px;
 }

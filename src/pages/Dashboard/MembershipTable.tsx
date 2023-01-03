@@ -30,15 +30,19 @@ const MembershipTable = ({ persons }: MembershipTableProps) => {
       }
     }
     setMembershipHonors(newMembershipHonors)
-  }, [persons, timeRangeEnd, timeRangeStart])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div id="MembershipTable">
-      <h1>Membership Honors</h1>
-      <h3>
-        {timeRangeStart.format('YYYY-MM-DD')} &nbsp;-&gt;&nbsp;{' '}
-        {timeRangeEnd.format('YYYY-MM-DD')}
-      </h3>
+      <div id="TableTitle">Membership Honors</div>
+      <div id="TableHeader">
+        <div id="TimeRangeArea">
+          {timeRangeStart.format('YYYY-MM-DD')} &nbsp;-&gt;&nbsp;{' '}
+          {timeRangeEnd.format('YYYY-MM-DD')}
+        </div>
+        <div id="CountLabel">Count: {membershipHonors.length}</div>
+      </div>
       <table className="table">
         <thead className="header">
           <tr>

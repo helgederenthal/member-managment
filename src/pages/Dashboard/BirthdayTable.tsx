@@ -32,15 +32,19 @@ const BirthdayTable = ({ persons }: BirthdayTableProps) => {
       }
     }
     setBirthdayHonors(newBirthdayHonors)
-  }, [persons, timeRangeEnd, timeRangeStart])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div id="BirthdayTable">
-      <h1>Birthday Honors</h1>
-      <h3>
-        {timeRangeStart.format('YYYY-MM-DD')} &nbsp;-&gt;&nbsp;{' '}
-        {timeRangeEnd.format('YYYY-MM-DD')}
-      </h3>
+      <div id="TableTitle">Birthday Honors</div>
+      <div id="TableHeader">
+        <div id="TimeRangeArea">
+          {timeRangeStart.format('YYYY-MM-DD')} &nbsp;-&gt;&nbsp;{' '}
+          {timeRangeEnd.format('YYYY-MM-DD')}
+        </div>
+        <div id="CountLabel">Count: {birthdayHonors.length}</div>
+      </div>
       <table className="table">
         <thead className="header">
           <tr>
