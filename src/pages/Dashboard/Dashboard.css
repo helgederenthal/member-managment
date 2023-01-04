@@ -15,6 +15,11 @@
   color: hsl(139, 44%, 54%);
 }
 
+#Dashboard .Label {
+  color: hsl(139, 44%, 54%);
+  font-weight: bold;
+}
+
 #Dashboard .table {
   border-spacing: 0px;
   margin: auto;
@@ -28,7 +33,7 @@
 #Dashboard .table th {
   color: hsl(139, 44%, 54%);
   display: table-cell;
-  padding: 10px 20px;
+  padding: 5px 10px;
 }
 
 #Dashboard .table > .header .years {
@@ -60,7 +65,7 @@
 }
 
 #Dashboard td {
-  padding: 10px 20px;
+  padding: 5px 10px;
 }
 
 #Dashboard .table tr:hover {
@@ -97,7 +102,7 @@
 }
 
 #Dashboard .table > .body .postcode {
-  padding: 10px 48px 10px 20px;
+  padding: 10px 42px 10px 20px;
 }
 
 #Dashboard .table > .body .city {
@@ -105,11 +110,11 @@
 }
 
 #Dashboard .table > .body .dateOfBirth {
-  padding: 10px 48px 10px 20px;
+  padding: 10px 42px 10px 20px;
 }
 
 #Dashboard .table > .body .joinedAt {
-  padding: 10px 48px 10px 20px;
+  padding: 10px 42px 10px 20px;
 }
 
 #Dashboard #MembershipTable {
@@ -138,7 +143,13 @@
   text-align: left;
 }
 
-#Dashboard #CountLabel {
+#Dashboard .TimeRangeDiffIcon {
+  color: hsl(139, 44%, 54%);
+  display: inline-block;
+  transform: rotate(90deg) translateX(4px);
+}
+
+#Dashboard #CountArea {
   white-space: nowrap;
   margin: 0 8px 8px 8px;
 }

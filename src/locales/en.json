@@ -6,6 +6,8 @@
     "part2": "Switch language between english and german using buttons above."
   },
   "Membership Honors": "Membership Honors",
+  "Birthdays": "Birthdays",
+  "Time Range": "Time Range",
   "Count": "Count",
   "Years": "Years",
   "Lastname": "Lastname",
@@ -14,5 +16,7 @@
   "Postcode": "Postcode",
   "City": "City",
   "Date of birth": "Date of birth",
-  "Member since": "Member since"
+  "Member since": "Member since",
+  "Age": "Age",
+  "Month/Day": "Month/Day"
 }

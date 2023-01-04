@@ -1,5 +1,4 @@
 import { gql, useQuery } from '@apollo/client'
-import { Trans } from 'react-i18next'
 import Person from '../../interfaces/Person'
 import MembershipTable from './MembershipTable'
 import './Dashboard.css'
@@ -38,7 +37,6 @@ const Dashboard = () => {
 
   return (
     <div id="Dashboard">
-      <Trans>description.part2</Trans>
       <MembershipTable persons={persons} />
 
       <BirthdayTable persons={persons} />

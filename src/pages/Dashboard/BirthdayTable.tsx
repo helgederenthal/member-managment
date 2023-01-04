@@ -1,6 +1,8 @@
 import { TableSortLabel } from '@mui/material'
 import moment from 'moment'
 import { useEffect, useState } from 'react'
+import { Trans } from 'react-i18next'
+import HeightIcon from '@mui/icons-material/Height'
 import Person from '../../interfaces/Person'
 import {
   getAnniversariesOfDateInTimespan,
@@ -74,13 +76,28 @@ const BirthdayTable = ({ persons }: BirthdayTableProps) => {
 
   return (
     <div id="BirthdayTable">
-      <div id="TableTitle">Birthday Honors</div>
+      <div id="TableTitle">
+        <Trans>Birthdays</Trans>
+      </div>
       <div id="TableHeader">
         <div id="TimeRangeArea">
-          {timeRangeStart.format('YYYY-MM-DD')} &nbsp;&gt;&nbsp;{' '}
+          <span className="Label">
+            <Trans>Time Range</Trans>:
+          </span>
+          &nbsp;&nbsp;
+          {timeRangeStart.format('YYYY-MM-DD')}&nbsp;
+          <span className="TimeRangeDiffIcon">
+            <HeightIcon />
+          </span>
+          &nbsp;&nbsp;
           {timeRangeEnd.format('YYYY-MM-DD')}
         </div>
-        <div id="CountLabel">Count: {birthdayHonors.length}</div>
+        <div id="CountArea">
+          <span className="Label">
+            <Trans>Count</Trans>:
+          </span>{' '}
+          {birthdayHonors.length}
+        </div>
       </div>
       <table className="table">
         <thead className="header">
@@ -91,7 +108,7 @@ const BirthdayTable = ({ persons }: BirthdayTableProps) => {
                 direction={sorting.direction}
                 onClick={() => changeSorting('years')}
               >
-                Age
+                <Trans>Age</Trans>
               </TableSortLabel>
             </th>
             <th className="dateOfBirthWithoutYear">
@@ -100,7 +117,7 @@ const BirthdayTable = ({ persons }: BirthdayTableProps) => {
                 direction={sorting.direction}
                 onClick={() => changeSorting('dateOfBirthWithoutYear')}
               >
-                Month/Day
+                <Trans>Month/Day</Trans>
               </TableSortLabel>
             </th>
             <th className="lastname">
@@ -109,7 +126,7 @@ const BirthdayTable = ({ persons }: BirthdayTableProps) => {
                 direction={sorting.direction}
                 onClick={() => changeSorting('lastname')}
               >
-                Lastname
+                <Trans>Lastname</Trans>
               </TableSortLabel>
             </th>
             <th className="firstname">
@@ -118,7 +135,7 @@ const BirthdayTable = ({ persons }: BirthdayTableProps) => {
                 direction={sorting.direction}
                 onClick={() => changeSorting('firstname')}
               >
-                Firstname
+                <Trans>Firstname</Trans>
               </TableSortLabel>
             </th>
             <th className="street">
@@ -127,7 +144,7 @@ const BirthdayTable = ({ persons }: BirthdayTableProps) => {
                 direction={sorting.direction}
                 onClick={() => changeSorting('street')}
               >
-                Street
+                <Trans>Street</Trans>
               </TableSortLabel>
             </th>
             <th className="postcode">
@@ -136,7 +153,7 @@ const BirthdayTable = ({ persons }: BirthdayTableProps) => {
                 direction={sorting.direction}
                 onClick={() => changeSorting('postcode')}
               >
-                Postcode
+                <Trans>Postcode</Trans>
               </TableSortLabel>
             </th>
             <th className="city">
@@ -145,7 +162,7 @@ const BirthdayTable = ({ persons }: BirthdayTableProps) => {
                 direction={sorting.direction}
                 onClick={() => changeSorting('city')}
               >
-                City
+                <Trans>City</Trans>
               </TableSortLabel>
             </th>
             <th className="dateOfBirth">
@@ -154,7 +171,7 @@ const BirthdayTable = ({ persons }: BirthdayTableProps) => {
                 direction={sorting.direction}
                 onClick={() => changeSorting('dateOfBirth')}
               >
-                Date of birth
+                <Trans>Date of birth</Trans>
               </TableSortLabel>
             </th>
             <th className="joinedAt">
@@ -163,7 +180,7 @@ const BirthdayTable = ({ persons }: BirthdayTableProps) => {
                 direction={sorting.direction}
                 onClick={() => changeSorting('joinedAt')}
               >
-                Member since
+                <Trans>Member since</Trans>
               </TableSortLabel>
             </th>
           </tr>

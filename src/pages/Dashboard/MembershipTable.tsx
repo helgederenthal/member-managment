@@ -1,12 +1,14 @@
 import moment from 'moment'
 import { useEffect, useState } from 'react'
 import { TableSortLabel } from '@mui/material'
+import HeightIcon from '@mui/icons-material/Height'
 import {
   getAnniversariesOfDateInTimespan,
   Sorting,
   sortPersons,
 } from '../../utilities'
 import Person from '../../interfaces/Person'
+import { Trans } from 'react-i18next'
 
 interface MembershipTableProps {
   persons: Person[]
@@ -72,13 +74,27 @@ const MembershipTable = ({ persons }: MembershipTableProps) => {
 
   return (
     <div id="MembershipTable">
-      <div id="TableTitle">Membership Honors</div>
+      <div id="TableTitle">
+        <Trans>Membership Honors</Trans>
+      </div>
       <div id="TableHeader">
         <div id="TimeRangeArea">
-          {timeRangeStart.format('YYYY-MM-DD')} &nbsp;&gt;&nbsp;{' '}
+          <span className="Label">
+            <Trans>Time Range</Trans>:&nbsp;&nbsp;
+          </span>
+          {timeRangeStart.format('YYYY-MM-DD')}&nbsp;
+          <span className="TimeRangeDiffIcon">
+            <HeightIcon />
+          </span>
+          &nbsp;&nbsp;
           {timeRangeEnd.format('YYYY-MM-DD')}
         </div>
-        <div id="CountLabel">Count: {membershipHonors.length}</div>
+        <div id="CountArea">
+          <span className="Label">
+            <Trans>Count</Trans>:
+          </span>{' '}
+          {membershipHonors.length}
+        </div>
       </div>
       <table className="table">
         <thead className="header">
@@ -89,7 +105,7 @@ const MembershipTable = ({ persons }: MembershipTableProps) => {
                 direction={sorting.direction}
                 onClick={() => changeSorting('years')}
               >
-                Years
+                <Trans>Years</Trans>
               </TableSortLabel>
             </th>
             <th className="lastname">
@@ -98,7 +114,7 @@ const MembershipTable = ({ persons }: MembershipTableProps) => {
                 direction={sorting.direction}
                 onClick={() => changeSorting('lastname')}
               >
-                Lastname
+                <Trans>Lastname</Trans>
               </TableSortLabel>
             </th>
             <th className="firstname">
@@ -107,7 +123,7 @@ const MembershipTable = ({ persons }: MembershipTableProps) => {
                 direction={sorting.direction}
                 onClick={() => changeSorting('firstname')}
               >
-                Firstname
+                <Trans>Firstname</Trans>
               </TableSortLabel>
             </th>
             <th className="street">
@@ -116,7 +132,7 @@ const MembershipTable = ({ persons }: MembershipTableProps) => {
                 direction={sorting.direction}
                 onClick={() => changeSorting('street')}
               >
-                Street
+                <Trans>Street</Trans>
               </TableSortLabel>
             </th>
             <th className="postcode">
@@ -125,7 +141,7 @@ const MembershipTable = ({ persons }: MembershipTableProps) => {
                 direction={sorting.direction}
                 onClick={() => changeSorting('postcode')}
               >
-                Postcode
+                <Trans>Postcode</Trans>
               </TableSortLabel>
             </th>
             <th className="city">
@@ -134,7 +150,7 @@ const MembershipTable = ({ persons }: MembershipTableProps) => {
                 direction={sorting.direction}
                 onClick={() => changeSorting('city')}
               >
-                City
+                <Trans>City</Trans>
               </TableSortLabel>
             </th>
             <th className="dateOfBirth">
@@ -143,7 +159,7 @@ const MembershipTable = ({ persons }: MembershipTableProps) => {
                 direction={sorting.direction}
                 onClick={() => changeSorting('dateOfBirth')}
               >
-                Date of birth
+                <Trans>Date of birth</Trans>
               </TableSortLabel>
             </th>
             <th className="joinedAt">
@@ -152,7 +168,7 @@ const MembershipTable = ({ persons }: MembershipTableProps) => {
                 direction={sorting.direction}
                 onClick={() => changeSorting('joinedAt')}
               >
-                Member since
+                <Trans>Member since</Trans>
               </TableSortLabel>
             </th>
           </tr>
