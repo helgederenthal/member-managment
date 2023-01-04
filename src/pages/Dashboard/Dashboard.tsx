@@ -1,4 +1,5 @@
 import { gql, useQuery } from '@apollo/client'
+import { Trans } from 'react-i18next'
 import Person from '../../interfaces/Person'
 import MembershipTable from './MembershipTable'
 import './Dashboard.css'
@@ -19,8 +20,9 @@ const personsQuery = gql`
   }
 `
 
-function Dashboard() {
+const Dashboard = () => {
   const { loading, error, data } = useQuery(personsQuery)
+
   if (loading) return <div>Loading persons...</div>
 
   if (error)
@@ -36,6 +38,7 @@ function Dashboard() {
 
   return (
     <div id="Dashboard">
+      <Trans>description.part2</Trans>
       <MembershipTable persons={persons} />
 
       <BirthdayTable persons={persons} />

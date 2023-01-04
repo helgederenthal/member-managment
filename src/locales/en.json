@@ -1,0 +1,18 @@
+{
+  "Welcome to <1>React</1>": "Welcome to <1>React and react-i18next</1>",
+  "title": "Welcome to react using react-i18next",
+  "description": {
+    "part1<1></1>": "To get started, edit <1>src/App.js</1> and save to reload.",
+    "part2": "Switch language between english and german using buttons above."
+  },
+  "Membership Honors": "Membership Honors",
+  "Count": "Count",
+  "Years": "Years",
+  "Lastname": "Lastname",
+  "Firstname": "Firstname",
+  "Street": "Street",
+  "Postcode": "Postcode",
+  "City": "City",
+  "Date of birth": "Date of birth",
+  "Member since": "Member since"
+}

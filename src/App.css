@@ -41,3 +41,11 @@
   align-items: center;
   justify-content: center;
 }
+
+.App-footer .GraphQL-Label {
+  width: 100%;
+}
+
+.App-footer .languageSelector {
+  margin: 0 30px;
+}

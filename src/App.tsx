@@ -1,6 +1,6 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, Suspense } from 'react'
 import { ipcRenderer } from 'electron'
-import { Route, Routes } from 'react-router-dom'
+import { HashRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Titlebar from './Titlebar'
 import Dashboard from './pages/Dashboard/Dashboard'
@@ -13,6 +13,7 @@ import {
   InMemoryCache,
 } from '@apollo/client'
 import logo from './logo.svg'
+import Footer from './Footer'
 
 function App() {
   const [apiPort, setApiPort] = useState(0)
@@ -21,6 +22,8 @@ function App() {
       cache: new InMemoryCache(),
     })
   )
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [language, setLanguage] = useState('en')
 
   useMemo(() => {
     if (apiPort === 0) {
@@ -44,37 +47,29 @@ function App() {
     }
   }, [apiPort])
 
-  const graphQlApiUrl = `http://localhost:${apiPort}`
-
   return (
-    <div className="App">
+    <Suspense fallback="loading...">
       <ApolloProvider client={apolloClient}>
-        <Titlebar />
-        <div className="App-content">
-          <img
-            className="App-background-image"
-            src={logo}
-            alt="Logo for background"
-          />
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/persons" element={<PersonList />} />
-            <Route path="/mandates" element={<MandateList />} />
-          </Routes>
-        </div>
-
-        <footer className="App-footer">
-          <a
-            className="App-link"
-            target="_blank"
-            rel="noreferrer"
-            href={graphQlApiUrl}
-          >
-            GraphQL-Port: {apiPort}
-          </a>
-        </footer>
+        <HashRouter>
+          <div className="App">
+            <Titlebar />
+            <div className="App-content">
+              <img
+                className="App-background-image"
+                src={logo}
+                alt="Logo for background"
+              />
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/persons" element={<PersonList />} />
+                <Route path="/mandates" element={<MandateList />} />
+              </Routes>
+            </div>
+            <Footer apiPort={apiPort} setLanguage={setLanguage} />
+          </div>
+        </HashRouter>
       </ApolloProvider>
-    </div>
+    </Suspense>
   )
 }
 
