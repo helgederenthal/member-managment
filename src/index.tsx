@@ -6,6 +6,7 @@ import './index.css'
 import App from './App'
 import en from './locales/en.json'
 import de from './locales/de.json'
+import moment from 'moment'
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
@@ -21,6 +22,14 @@ i18n
       de: { translation: de },
     },
   })
+
+moment.updateLocale('en', {
+  months: en.months,
+})
+
+moment.updateLocale('de', {
+  months: de.months,
+})
 
 ReactDOM.render(
   <React.StrictMode>

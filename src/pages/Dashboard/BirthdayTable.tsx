@@ -2,6 +2,7 @@ import { TableSortLabel } from '@mui/material'
 import moment from 'moment'
 import { useEffect, useState } from 'react'
 import { Trans } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import HeightIcon from '@mui/icons-material/Height'
 import Person from '../../interfaces/Person'
 import {
@@ -21,6 +22,9 @@ const BirthdayTable = ({ persons }: BirthdayTableProps) => {
     column: 'dateOfBirthWithoutYear',
     direction: 'asc',
   })
+
+  const { i18n } = useTranslation()
+  moment.locale(i18n.language)
 
   const timeRangeStart = moment(new Date('2023-01-01T00:00:00Z')).utc()
   const timeRangeEnd = moment(new Date('2023-12-31T23:59:59Z')).utc()

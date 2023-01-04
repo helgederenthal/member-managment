@@ -18,5 +18,19 @@
   "Date of birth": "Geburtsdatum",
   "Member since": "Eintritt",
   "Age": "Alter",
-  "Month/Day": "Monat/Tag"
+  "Month/Day": "Monat/Tag",
+  "months": [
+    "Januar",
+    "Februar",
+    "März",
+    "April",
+    "Mai",
+    "Juni",
+    "Juli",
+    "August",
+    "September",
+    "Oktober",
+    "November",
+    "Dezember"
+  ]
 }
