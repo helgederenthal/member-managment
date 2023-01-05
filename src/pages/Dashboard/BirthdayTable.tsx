@@ -10,6 +10,7 @@ import {
   Sorting,
   sortPersons,
 } from '../../utilities'
+import InfoButton from '../../common/InfoButton'
 
 interface BirthdayTableProps {
   persons: Person[]
@@ -82,6 +83,12 @@ const BirthdayTable = ({ persons }: BirthdayTableProps) => {
     <div id="BirthdayTable">
       <div id="TableTitle">
         <Trans>Birthdays</Trans>
+        <span className="InfoButtonArea">
+          <InfoButton
+            message={<Trans>Birthdays Tooltip</Trans>}
+            className="InfoButton"
+          />
+        </span>
       </div>
       <div id="TableHeader">
         <div id="TimeRangeArea">

@@ -9,6 +9,7 @@ import {
 } from '../../utilities'
 import Person from '../../interfaces/Person'
 import { Trans } from 'react-i18next'
+import InfoButton from '../../common/InfoButton'
 
 interface MembershipTableProps {
   persons: Person[]
@@ -24,10 +25,10 @@ const MembershipTable = ({ persons }: MembershipTableProps) => {
 
   const timeRangeStart = moment(new Date('2022-04-23T00:00:00Z')).utc()
   const timeRangeEnd = moment(new Date('2023-01-27T23:59:59Z')).utc()
+  const membershipYearsToHonor = [15, 25, 40, 50]
 
   useEffect(() => {
     const newMembershipHonors: Person[] = []
-    const membershipYearsToHonor = [15, 25, 40, 50]
     for (const person of persons) {
       // Get membership anniversaries for current person
       const membershipAnniversaries = getAnniversariesOfDateInTimespan(
@@ -76,6 +77,12 @@ const MembershipTable = ({ persons }: MembershipTableProps) => {
     <div id="MembershipTable">
       <div id="TableTitle">
         <Trans>Membership Honors</Trans>
+        <span className="InfoButtonArea">
+          <InfoButton
+            message={<Trans>Membership Honors Tooltip</Trans>}
+            className="InfoButton"
+          />
+        </span>
       </div>
       <div id="TableHeader">
         <div id="TimeRangeArea">

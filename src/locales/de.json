@@ -6,7 +6,9 @@
     "part2": "Wechsle die Sprache zwischen deutsch und englisch mit Hilfe der beiden Schalter."
   },
   "Membership Honors": "Ehrungen Mitgliedschaft",
+  "Membership Honors Tooltip": "Die folgenden Mitgliedsjahre werden geehrt:<br/>15 Jahre (Ehrennadel in Bronze)<br/>25 Jahre (Ehrennadel in Silber)<br/>40 Jahre (Ehrennadel in Gold)<br/>50 Jahre (Ehrennadel in Gold mit 50)<br/>50 Jahre und das 70. Lebensjahr vollendet (Ehrenmitgliedschaft)",
   "Birthdays": "Geburtstage",
+  "Birthdays Tooltip": "Jedes Mitglied erhält zum 50. und zum 60. Geburtstag eine Glückwunschkarte oder ein Glückwunschschreiben des Vorstandes.<br/>Ab dem 70. Geburtstag sowie zu jedem weiteren 5. Geburtstag erhalten Vereinsmitglieder ein Geschenk mit den Glückwünschen des Vereins überreicht. Die Ehrung erfolgt durch ein Vorstandsmitglied oder einen hierzu Beauftragten.",
   "Time Range": "Zeitraum",
   "Count": "Anzahl",
   "Years": "Jahre",

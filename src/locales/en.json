@@ -6,7 +6,9 @@
     "part2": "Switch language between english and german using buttons above."
   },
   "Membership Honors": "Membership Honors",
+  "Membership Honors Tooltip": "The following years of membership will be honored:<br/>15 years (bronze badge of honor)<br/>25 years (silver badge of honor)<br/>40 years (golden badge of honor)<br/>50 years (golden badge of honor with 50)<br/>50 years and completed the 70th year of life (honorary membership)",
   "Birthdays": "Birthdays",
+  "Birthdays Tooltip": "Every member receives a greetings card or a letter of congratulations from the board on their 50th and 60th birthdays.<br/>From the 70th birthday and on every further 5th birthday, club members receive a gift with the club's congratulations. The award is given by a member of the board of directors or a person authorized to do so.",
   "Time Range": "Time Range",
   "Count": "Count",
   "Years": "Years",

@@ -161,3 +161,12 @@
 #Dashboard .MuiTableSortLabel-icon {
   color: hsl(139, 44%, 54%);
 }
+
+#Dashboard .InfoButton {
+  transform: scale(0.75);
+  margin: 0 0 5px 0;
+  cursor: pointer;
+}
+#Dashboard .InfoButtonArea :hover {
+  color: hsl(139, 44%, 75%);
+}
