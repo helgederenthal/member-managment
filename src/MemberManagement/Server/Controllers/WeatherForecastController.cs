@@ -9,7 +9,7 @@ namespace MemberManagement.Server.Controllers
     {
         private static readonly string[] Summaries = new[]
         {
-        "Fucking HOT!"
+        "Hot", "Damn hot", "Fucking HOT!"
     };
 
         private readonly ILogger<WeatherForecastController> _logger;
@@ -22,6 +22,7 @@ namespace MemberManagement.Server.Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
+            _logger.LogInformation("Call to WeatherForecast endpoint");
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
