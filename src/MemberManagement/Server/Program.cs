@@ -1,9 +1,14 @@
 using MemberManagement.Client;
+using MemberManagement.Server.Data;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionString = builder.Configuration.GetConnectionString("DatabaseConnection");
+builder.Services.AddDbContext<MemberManagementDbContext>(options => options.UseSqlite(connectionString));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -20,6 +25,11 @@ builder.Host.UseSerilog((ctx, lc) =>
 
 var app = builder.Build();
 
+// Init Database
+app.Services.CreateScope().ServiceProvider.GetRequiredService<MemberManagementDbContext>().Database.EnsureCreated();
+
+#region Logger
+
 ILogger<App> logger = app.Services.GetRequiredService<ILogger<App>>();
 
 app.Lifetime.ApplicationStarted.Register(() =>
@@ -35,12 +45,21 @@ app.Lifetime.ApplicationStopping.Register(() =>
     logger.LogInformation($"{new string('#', 15)} Application stopped {new string('#', 15)}");
 });
 
+#endregion
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseWebAssemblyDebugging();
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwagger(c =>
+    {
+        c.RouteTemplate = "api/swagger/{documentname}/swagger.json";
+    });
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/api/swagger/v1/swagger.json", "MemberManagement API");
+        c.RoutePrefix = "api/swagger";
+    });
 }
 else
 {
@@ -49,7 +68,7 @@ else
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
