@@ -25,8 +25,20 @@ builder.Host.UseSerilog((ctx, lc) =>
 
 var app = builder.Build();
 
+// Get Database Context
+var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<MemberManagementDbContext>();
+
 // Init Database
-app.Services.CreateScope().ServiceProvider.GetRequiredService<MemberManagementDbContext>().Database.EnsureCreated();
+context.Database.EnsureCreated();
+var demoDataSeeder = new DemoDataSeeder(context);
+if (builder.Configuration.GetSection("DemoData").GetSection("ClearDatabase").Value == "true")
+{
+    demoDataSeeder.ClearDatabase();
+}
+if (builder.Configuration.GetSection("DemoData").GetSection("AddDemoData").Value == "true")
+{
+    demoDataSeeder.AddDemoData();
+}
 
 #region Logger
 

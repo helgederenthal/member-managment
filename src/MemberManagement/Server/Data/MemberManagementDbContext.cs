@@ -14,18 +14,18 @@ namespace MemberManagement.Server.Data
 
         public virtual DbSet<Person> Persons { get; set; }
 
+        public virtual DbSet<Department> Departments{ get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Person>(entity =>
+            modelBuilder.Entity<Person>(p =>
             {
-                entity.HasKey(e => e.Id).HasName("PK__Persons__3214EC07039D972A");
+                p.HasMany(p => p.DepartmentsParticipating).WithMany(d => d.Participants).UsingEntity("DepartmentParticipations");
+            });
 
-                entity.Property(e => e.FirstName).HasMaxLength(50);
-                entity.Property(e => e.LastName).HasMaxLength(50);
-                entity.Property(e => e.Street).HasMaxLength(50);
-                entity.Property(e => e.HouseNumber).HasMaxLength(20);
-                entity.Property(e => e.City).HasMaxLength(50);
-                entity.Property(e => e.Email).HasMaxLength(250);
+            modelBuilder.Entity<Person>(p =>
+            {
+                p.HasMany(p => p.DepartmentsTraining).WithMany(d => d.Trainers).UsingEntity("DepartmentTrainers");
             });
         }
     }

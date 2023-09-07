@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MemberManagement.Server.Data;
 
@@ -28,7 +23,7 @@ namespace MemberManagement.Server.Controllers
           {
               return NotFound();
           }
-            return await _context.Persons.ToListAsync();
+            return await _context.Persons.Include("DepartmentsParticipating").ToListAsync();
         }
 
         // GET: api/Person/5
@@ -54,7 +49,7 @@ namespace MemberManagement.Server.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPerson(int id, Person person)
         {
-            if (id != person.Id)
+            if (id != person.PersonId)
             {
                 return BadRequest();
             }
@@ -92,7 +87,7 @@ namespace MemberManagement.Server.Controllers
             _context.Persons.Add(person);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPerson", new { id = person.Id }, person);
+            return CreatedAtAction("GetPerson", new { id = person.PersonId }, person);
         }
 
         // DELETE: api/Person/5
@@ -117,7 +112,7 @@ namespace MemberManagement.Server.Controllers
 
         private bool PersonExists(int id)
         {
-            return (_context.Persons?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Persons?.Any(e => e.PersonId == id)).GetValueOrDefault();
         }
     }
 }
