@@ -19,22 +19,58 @@ namespace MemberManagement.Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Person>>> GetPersons()
         {
-          if (_context.Persons == null)
-          {
-              return NotFound();
-          }
-            return await _context.Persons.Include("DepartmentsParticipating").ToListAsync();
+            if (_context.Persons == null)
+            {
+                return NotFound();
+            }
+            return await _context.Persons.Select(p => new Person
+            {
+                PersonId = p.PersonId,
+                FirstName = p.FirstName,
+                LastName = p.LastName,
+                Street = p.Street,
+                HouseNumber = p.HouseNumber,
+                Postcode = p.Postcode,
+                City = p.City,
+                Email = p.Email,
+                DateOfBirth = p.DateOfBirth,
+                JoinedAt = p.JoinedAt,
+                ExitedAt = p.ExitedAt,
+                PaysCash = p.PaysCash,
+                IsStudent = p.IsStudent,
+                IsPensioner = p.IsPensioner,
+                DepartmentsTraining = p.DepartmentsTraining.Select(dp => new Department { DepartmentId = dp.DepartmentId, Name = dp.Name }).ToList(),
+                DepartmentsParticipating = p.DepartmentsParticipating.Select(dp => new Department { DepartmentId = dp.DepartmentId, Name = dp.Name }).ToList()
+            }).ToListAsync();
         }
 
         // GET: api/Person/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Person>> GetPerson(int id)
         {
-          if (_context.Persons == null)
-          {
-              return NotFound();
-          }
-            var person = await _context.Persons.FindAsync(id);
+            if (_context.Persons == null)
+            {
+                return NotFound();
+            }
+            Person? person = await _context.Persons.Select(p => new Person
+            {
+                PersonId = p.PersonId,
+                FirstName = p.FirstName,
+                LastName = p.LastName,
+                Street = p.Street,
+                HouseNumber = p.HouseNumber,
+                Postcode = p.Postcode,
+                City = p.City,
+                Email = p.Email,
+                DateOfBirth = p.DateOfBirth,
+                JoinedAt = p.JoinedAt,
+                ExitedAt = p.ExitedAt,
+                PaysCash = p.PaysCash,
+                IsStudent = p.IsStudent,
+                IsPensioner = p.IsPensioner,
+                DepartmentsTraining = p.DepartmentsTraining.Select(dp => new Department { DepartmentId = dp.DepartmentId, Name = dp.Name }).ToList(),
+                DepartmentsParticipating = p.DepartmentsParticipating.Select(dp => new Department { DepartmentId = dp.DepartmentId, Name = dp.Name }).ToList()
+            }).FirstOrDefaultAsync(p => p.PersonId == id);
 
             if (person == null)
             {
@@ -80,14 +116,14 @@ namespace MemberManagement.Server.Controllers
         [HttpPost]
         public async Task<ActionResult<Person>> PostPerson(Person person)
         {
-          if (_context.Persons == null)
-          {
-              return Problem("Entity set 'MemberManagementDbContext.Persons'  is null.");
-          }
+            if (_context.Persons == null)
+            {
+                return Problem("Entity set 'MemberManagementDbContext.Persons'  is null.");
+            }
             _context.Persons.Add(person);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPerson", new { id = person.PersonId }, person);
+            return CreatedAtAction(nameof(GetPerson), new { id = person.PersonId }, person);
         }
 
         // DELETE: api/Person/5
