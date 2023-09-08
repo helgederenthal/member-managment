@@ -8,10 +8,17 @@ using Serilog.Events;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DatabaseConnection");
-builder.Services.AddDbContext<MemberManagementDbContext>(options => options.UseSqlite(connectionString));
+builder.Services.AddDbContext<MemberManagementDbContext>(
+    options => options.UseSqlite(
+        connectionString,
+        o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery))
+    );
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddJsonOptions(opt =>
+                 {
+                     opt.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+                 }); ;
 builder.Services.AddRazorPages();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -46,7 +53,7 @@ ILogger<App> logger = app.Services.GetRequiredService<ILogger<App>>();
 
 app.Lifetime.ApplicationStarted.Register(() =>
 {
-    logger.LogInformation($"{new string('#',15)} Application started {new string('#', 15)}");
+    logger.LogInformation($"{new string('#', 15)} Application started {new string('#', 15)}");
     logger.LogInformation($"Urls: {string.Join(",", app.Urls)}");
     logger.LogInformation($"Environment: {app.Environment.EnvironmentName}");
     logger.LogInformation(new string('-', 51));

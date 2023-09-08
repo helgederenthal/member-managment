@@ -9,7 +9,7 @@ namespace MemberManagement.Server.Controllers
     {
         private static readonly string[] Summaries = new[]
         {
-        "Hot", "Damn hot", "Fucking HOT!"
+        "Hot", "Very hot", "Damn hot", "Fucking HOT!"
     };
 
         private readonly ILogger<WeatherForecastController> _logger;

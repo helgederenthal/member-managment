@@ -9,26 +9,26 @@ namespace MemberManagement.Server.Data
 
         [Required]
         [MinLength(1), MaxLength(50)]
-        public string FirstName { get; set; }
+        public required string FirstName { get; set; }
 
         [Required]
         [MinLength(1), MaxLength(50)]
-        public string LastName { get; set; }
+        public required string LastName { get; set; }
 
         [Required]
         [MinLength(1), MaxLength(50)]
-        public string Street { get; set; }
+        public required string Street { get; set; }
 
         [Required]
         [MinLength(1), MaxLength(20)]
-        public string HouseNumber { get; set; }
+        public required string HouseNumber { get; set; }
 
         [Required]
         public int? Postcode { get; set; }
 
         [Required]
         [MinLength(1), MaxLength(50)]
-        public string City { get; set; }
+        public required string City { get; set; }
 
         [MinLength(1), MaxLength(250)]
         public string? Email { get; set; }
@@ -39,9 +39,9 @@ namespace MemberManagement.Server.Data
 
         public DateTime? ExitedAt { get; set; }
 
-        public bool PaysCash{ get; set; } = false;
+        public bool PaysCash { get; set; } = false;
 
-        public bool IsStudent{ get; set; } = false;
+        public bool IsStudent { get; set; } = false;
 
         public bool IsPensioner { get; set; } = false;
 

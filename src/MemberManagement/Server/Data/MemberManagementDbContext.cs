@@ -4,17 +4,13 @@ namespace MemberManagement.Server.Data
 {
     public partial class MemberManagementDbContext : DbContext
     {
-        public MemberManagementDbContext()
-        {
-        }
-
         public MemberManagementDbContext(DbContextOptions<MemberManagementDbContext> options) : base(options)
         {
         }
 
         public virtual DbSet<Person> Persons { get; set; }
 
-        public virtual DbSet<Department> Departments{ get; set; }
+        public virtual DbSet<Department> Departments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

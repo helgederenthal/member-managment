@@ -8,11 +8,11 @@ namespace MemberManagement.Server.Data
         public int DepartmentId { get; set; }
 
         [MinLength(1), MaxLength(250)]
-        public string Name { get; set; }
+        public required string Name { get; set; }
 
-        public ICollection<Person> Trainers = new List<Person>();
+        public virtual ICollection<Person> Trainers { get; set; } = new List<Person>();
 
-        public ICollection<Person> Participants = new List<Person>();
+        public virtual ICollection<Person> Participants { get; set; } = new List<Person>();
 
         public void AddTrainer(Person person)
         {
