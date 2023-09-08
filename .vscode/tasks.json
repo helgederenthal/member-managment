@@ -14,16 +14,50 @@
             "problemMatcher": "$msCompile"
         },
         {
+            "label": "watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/src/MemberManagement/Server"
+            },
+            "problemMatcher": []
+        },
+        {
             "label": "publish",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/src/MemberManagement/MemberManagement.sln",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "${workspaceFolder}/src/MemberManagement/Server/MemberManagement.Server.csproj",
+                "--configuration",
+                "Release",
+                "--framework",
+                "net7.0",
+                "--self-contained",
+                "--runtime",
+                "linux-arm64"
             ],
-            "problemMatcher": "$msCompile"
+            "problemMatcher": []
+        },
+        {
+            "label": "deploy",
+            "command": "bash",
+            "args": [
+                "deploy-linux-arm64.sh"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/deployment/",
+                "env": {
+                    "DEPLOYMENT_USERNAME": "${env:DEPLOYMENT_USERNAME}",
+                    "DEPLOYMENT_TARGET": "${env:DEPLOYMENT_TARGET}"
+                }
+            },
+            "type": "shell",
+            "problemMatcher": []
         }
     ]
 }

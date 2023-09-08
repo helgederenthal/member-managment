@@ -7,14 +7,19 @@ using Serilog.Events;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Get Connection String
 var connectionString = builder.Configuration.GetConnectionString("DatabaseConnection");
+if (connectionString != null)
+{
+    connectionString = Environment.ExpandEnvironmentVariables(connectionString);
+}
+
+// Add Services to the Container
 builder.Services.AddDbContext<MemberManagementDbContext>(
     options => options.UseSqlite(
         connectionString,
         o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery))
     );
-
-// Add services to the container.
 builder.Services.AddControllersWithViews().AddJsonOptions(opt =>
                  {
                      opt.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
@@ -23,6 +28,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Logging
 builder.Host.UseSerilog((ctx, lc) =>
 {
     lc.ReadFrom.Configuration(ctx.Configuration)
@@ -70,15 +76,6 @@ app.Lifetime.ApplicationStopping.Register(() =>
 if (app.Environment.IsDevelopment())
 {
     app.UseWebAssemblyDebugging();
-    app.UseSwagger(c =>
-    {
-        c.RouteTemplate = "api/swagger/{documentname}/swagger.json";
-    });
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/api/swagger/v1/swagger.json", "MemberManagement API");
-        c.RoutePrefix = "api/swagger";
-    });
 }
 else
 {
@@ -86,6 +83,16 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseSwagger(c =>
+    {
+        c.RouteTemplate = "api/swagger/{documentname}/swagger.json";
+    });
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/api/swagger/v1/swagger.json", "MemberManagement API");
+    c.RoutePrefix = "api/swagger";
+});
 
 //app.UseHttpsRedirection();
 
