@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MemberManagement.Server.Data;
+using MemberManagement.Shared;
 
 namespace MemberManagement.Server.Controllers
 {

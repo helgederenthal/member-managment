@@ -1,4 +1,6 @@
-﻿namespace MemberManagement.Server.Data
+﻿using MemberManagement.Shared;
+
+namespace MemberManagement.Server.Data
 {
     public class DemoDataSeeder
     {
