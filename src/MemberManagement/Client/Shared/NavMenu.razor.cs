@@ -11,14 +11,36 @@ namespace MemberManagement.Client.Shared
         [Inject]
         NavigationManager NavigationManager { get; set; } = default!;
 
-        private string Title { get; set; } = "";
+        private string _Title = "";
+        private string TabTitle { get; set; } = "";
+        public string Title
+        {
+            get { return _Title; }
+            set
+            {
+                _Title = value;
+                if (_Title == AppSettings.Title)
+                {
+                    TabTitle = _Title;
+                }
+                else
+                {
+                    TabTitle = _Title + " - " + AppSettings.Title;
+                }
+
+
+            }
+        }
+
 
         protected override void OnInitialized()
         {
             if (NavigationManager != null)
             {
-                Title = GetTitle(NavigationManager.Uri);
                 NavigationManager.LocationChanged += HandleLocationChanged;
+                Title = GetTitle(NavigationManager.Uri);
+                StateHasChanged();
+
             }
         }
 
