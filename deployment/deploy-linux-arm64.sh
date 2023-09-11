@@ -40,6 +40,9 @@ ssh $DEPLOYMENT_USERNAME@$DEPLOYMENT_TARGET 'mkdir /home/'$DEPLOYMENT_USERNAME'/
 # Copy data
 scp -r ../src/MemberManagement/Server/bin/Release/net7.0/linux-arm64/publish/* $DEPLOYMENT_USERNAME@$DEPLOYMENT_TARGET:/home/$DEPLOYMENT_USERNAME/member-management/bin/
 
+# Apply custom data
+ssh $DEPLOYMENT_USERNAME@$DEPLOYMENT_TARGET 'python3 /home/'$DEPLOYMENT_USERNAME'/member-management/custom-data/ApplyCustomData.py'
+
 # Configure executable
 ssh $DEPLOYMENT_USERNAME@$DEPLOYMENT_TARGET 'chmod a+x /home/'$DEPLOYMENT_USERNAME'/member-management/bin/MemberManagement.Server'
 
