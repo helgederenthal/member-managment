@@ -1,0 +1,28 @@
+@page "/members"
+@inject HttpClient Http
+
+@if (Persons == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-light">
+        <thead class="table-primary">
+            <tr>
+                <th>Last name</th>
+                <th>First name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var person in Persons)
+            {
+                <tr>
+                    <td>@person.LastName</td>
+                    <td>@person.FirstName</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}

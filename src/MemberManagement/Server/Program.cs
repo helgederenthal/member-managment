@@ -1,5 +1,6 @@
 using MemberManagement.Client;
 using MemberManagement.Server.Data;
+using MemberManagement.Shared;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Core;
@@ -21,12 +22,20 @@ builder.Services.AddDbContext<MemberManagementDbContext>(
         o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery))
     );
 builder.Services.AddControllersWithViews().AddJsonOptions(opt =>
-                 {
-                     opt.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
-                 }); ;
+    {
+        opt.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
+
 builder.Services.AddRazorPages();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Client App Settings
+var clientAppSettings = builder.Configuration.GetSection("ClientAppSettings").Get<ClientAppSettings>();
+if (clientAppSettings != null)
+{
+    builder.Services.AddSingleton(clientAppSettings);
+}
 
 // Logging
 builder.Host.UseSerilog((ctx, lc) =>

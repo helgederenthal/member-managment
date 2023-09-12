@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MemberManagement.Shared;
+using Microsoft.EntityFrameworkCore;
 
 namespace MemberManagement.Server.Data
 {
@@ -8,9 +9,9 @@ namespace MemberManagement.Server.Data
         {
         }
 
-        public virtual DbSet<Person> Persons { get; set; }
+        public virtual DbSet<Person> Persons { get; set; } = default!;
 
-        public virtual DbSet<Department> Departments { get; set; }
+        public virtual DbSet<Department> Departments { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

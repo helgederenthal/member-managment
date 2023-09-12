@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MemberManagement.Server.Data
+namespace MemberManagement.Shared
 {
     public class Department
     {
