@@ -1,0 +1,24 @@
+﻿@page "/person/{Id:int}"
+
+@if(Loading)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @if (Person != null)
+    {
+        <table>
+            <tbody>
+                <tr><td>ID</td><td>@Person.PersonId</td></tr>
+                <tr><td>Last Name</td><td>@Person.LastName</td></tr>
+                <tr><td>First Name</td><td>@Person.FirstName</td></tr>
+                <tr><td>Address</td><td>@Person.Street @Person.HouseNumber<br /> @Person.Postcode @Person.City</td></tr>
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Person with id "@Id" not found!</p>
+    }
+}

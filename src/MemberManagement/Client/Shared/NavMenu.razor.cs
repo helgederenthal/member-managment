@@ -1,5 +1,7 @@
+using MemberManagement.Shared;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
+using System.Text.RegularExpressions;
 
 namespace MemberManagement.Client.Shared
 {
@@ -61,6 +63,10 @@ namespace MemberManagement.Client.Shared
             if (location.ToLower().EndsWith("members"))
             {
                 title = "Members";
+            }
+            if(Regex.Match(location, ".*\\/person\\/\\d+$").Success)
+            {
+                title = "Person Details";
             }
 
             return title;
