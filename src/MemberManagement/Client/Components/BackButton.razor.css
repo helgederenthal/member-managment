@@ -1,0 +1,10 @@
+﻿.back-button {
+    color: rgb(70, 140, 70);
+    margin-top: -5px;
+    margin-right: 10px;
+}
+
+.back-button:hover {
+    color: rgb(150, 200, 150);
+    cursor: pointer;
+}

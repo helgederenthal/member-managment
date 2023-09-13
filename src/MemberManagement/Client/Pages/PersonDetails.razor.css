@@ -1,0 +1,13 @@
+﻿.name {
+    font-weight: 800;
+}
+
+.key-column {
+    font-weight: bold;
+    vertical-align: middle;
+    width: 150px;
+}
+
+#details-table {
+    margin-top: 15px;
+}

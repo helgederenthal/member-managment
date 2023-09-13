@@ -28,5 +28,6 @@ namespace MemberManagement.Client.Pages
             }
             Loading = false;
         }
+
     }
 }

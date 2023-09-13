@@ -1,5 +1,6 @@
 ﻿@page "/person/{Id:int}"
 
+
 @if(Loading)
 {
     <p><em>Loading...</em></p>
@@ -8,12 +9,36 @@ else
 {
     @if (Person != null)
     {
-        <table>
+        <BackButton/><span class="name">@(Person.LastName + ", " + Person.FirstName)</span>
+        <table id="details-table" class="table table-bordered table-light">
             <tbody>
-                <tr><td>ID</td><td>@Person.PersonId</td></tr>
-                <tr><td>Last Name</td><td>@Person.LastName</td></tr>
-                <tr><td>First Name</td><td>@Person.FirstName</td></tr>
-                <tr><td>Address</td><td>@Person.Street @Person.HouseNumber<br /> @Person.Postcode @Person.City</td></tr>
+                <tr><td class="key-column">Address</td><td class="value-column">@Person.Street @Person.HouseNumber<br /> @Person.Postcode @Person.City</td></tr>
+                <tr>
+                    <td class="key-column">Student</td>
+                    <td class="value-column">
+                        @if(Person.IsStudent)
+                        {
+                            <CheckIcon/>
+                        }
+                        else
+                        {
+                            <BanIcon />
+                        }                        
+                    </td>
+                </tr>
+                <tr>
+                    <td class="key-column">Pensioner</td>
+                    <td class="value-column">
+                        @if (Person.IsPensioner)
+                        {
+                            <CheckIcon />
+                        }
+                        else
+                        {
+                            <BanIcon />
+                        }
+                    </td>
+                </tr>
             </tbody>
         </table>
     }
