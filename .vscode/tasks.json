@@ -60,7 +60,7 @@
             "problemMatcher": []
         },
         {
-            "label": "plublish and deploy",
+            "label": "publish and deploy",
             "dependsOn": [
                 "publish",
                 "deploy"

@@ -17,6 +17,11 @@ namespace MemberManagement.Client.Pages
         protected override async Task OnInitializedAsync()
         {
             Persons = await HttpClient.GetFromJsonAsync<List<Person>>("api/Person");
+
+            if(Persons != null)
+            {
+                Persons = Persons.OrderBy((p) => $"{p.LastName}{p.FirstName}").ToList();
+            }            
         }
 
         private void PersonClicked(int id)

@@ -59,13 +59,29 @@ namespace MemberManagement.Client.Shared
         private static string GetTitle(string location)
         {
             var title = AppSettings.Title;
-            if (location.ToLower().EndsWith("members"))
+            if (location.ToLower().EndsWith("/members"))
             {
                 title = "Members";
             }
             if(Regex.Match(location, ".*\\/person\\/\\d+$").Success)
             {
                 title = "Person Details";
+            }
+            if (location.ToLower().EndsWith("/birthdays"))
+            {
+                title = "Birthdays";
+            }
+            if (location.ToLower().EndsWith("/honors"))
+            {
+                title = "Honors";
+            }
+            if (location.ToLower().EndsWith("/honorarymembers"))
+            {
+                title = "Honorary Members";
+            }
+            if (location.ToLower().EndsWith("/otherpeople"))
+            {
+                title = "Other People";
             }
 
             return title;

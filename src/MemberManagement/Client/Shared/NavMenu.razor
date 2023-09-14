@@ -11,14 +11,34 @@
 
 <div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
     <nav class="flex-column">
-        <div class="nav-item px-3">
+        <div class="nav-item px-1">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Overview
+                <OverviewIcon /> Overview
             </NavLink>
         </div>
-        <div class="nav-item px-3">
+        <div class="nav-item px-1">
             <NavLink class="nav-link" href="members">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Members
+                <MembersIcon /> Members
+            </NavLink>
+        </div>
+        <div class="nav-item px-1">
+            <NavLink class="nav-link" href="birthdays">
+                <GiftIcon /> Birthdays
+            </NavLink>
+        </div>
+        <div class="nav-item px-1">
+            <NavLink class="nav-link" href="honors">
+                <TrophyIcon /> Honors
+            </NavLink>
+        </div>
+        <div class="nav-item px-1">
+            <NavLink class="nav-link" href="honorarymembers">
+                <StarIcon /> Honorary Members
+            </NavLink>
+        </div>
+        <div class="nav-item px-1">
+            <NavLink class="nav-link" href="otherpeople">
+                <PersonPlusIcon /> Other People
             </NavLink>
         </div>
     </nav>
