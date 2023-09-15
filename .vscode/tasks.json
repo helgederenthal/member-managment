@@ -58,6 +58,15 @@
             },
             "type": "shell",
             "problemMatcher": []
+        },
+        {
+            "label": "publish and deploy",
+            "dependsOn": [
+                "publish",
+                "deploy"
+            ],
+            "dependsOrder": "sequence",
+            "problemMatcher": []
         }
     ]
 }

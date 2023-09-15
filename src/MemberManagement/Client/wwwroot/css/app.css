@@ -29,7 +29,7 @@ a,
 }
 
 .content {
-  padding-top: 1.1rem;
+    padding-top: 0.6rem;
 }
 
 .valid.modified:not([type="checkbox"]) {
@@ -110,4 +110,8 @@ a,
 
 .table-primary {
   --bs-table-bg: rgb(150, 200, 150);
+}
+
+.table > :not(caption) > * > * {
+    padding: 0.2rem 0.5rem
 }
