@@ -83,7 +83,8 @@ main {
 
   .top-row,
   article {
-    padding-left: 2rem !important;
-    padding-right: 1.5rem !important;
+    padding-top: 1rem;
+    padding-left: 1rem !important;
+    padding-right: 0.8rem !important;
   }
 }

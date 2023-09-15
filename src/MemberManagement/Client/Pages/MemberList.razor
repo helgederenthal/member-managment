@@ -1,7 +1,6 @@
 @page "/members"
-@inject HttpClient Http
 
-@if (Persons == null)
+@if (Members == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -10,19 +9,18 @@ else
     <table class="table table-light">
         <thead class="table-primary">
             <tr>
-                <th>Last name</th>
-                <th>First name</th>
+                <th>Last Name</th>
+                <th>First Name</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var person in Persons)
+            @foreach (var person in Members)
             {
-                <tr>
+                <tr @onclick=@(e => PersonClicked(person.PersonId)) style="cursor: pointer;">
                     <td>@person.LastName</td>
                     <td>@person.FirstName</td>
                 </tr>
             }
-
         </tbody>
     </table>
 }

@@ -1,69 +1,95 @@
+using MemberManagement.Client.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
+using System.Text.RegularExpressions;
 
-namespace MemberManagement.Client.Shared
+namespace MemberManagement.Client.Shared;
+
+public partial class NavMenu
 {
-    public partial class NavMenu
+    private bool collapseNavMenu = true;
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    [Inject]
+    NavigationManager NavigationManager { get; set; } = default!;
+
+    [Inject]
+    IAppSettingsDataService AppSettingsDataService { get; set; } = default!;
+
+    private string TabTitle { get; set; } = "";
+
+    private string AppSettingsTitle = "";
+
+    private string _Title = "";
+    public string Title
     {
-        private bool collapseNavMenu = true;
-        private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-        [Inject]
-        NavigationManager NavigationManager { get; set; } = default!;
-
-        private string _Title = "";
-        private string TabTitle { get; set; } = "";
-        public string Title
+        get { return _Title; }
+        set
         {
-            get { return _Title; }
-            set
+            _Title = value;
+            if (_Title == AppSettingsTitle)
             {
-                _Title = value;
-                if (_Title == AppSettings.Title)
-                {
-                    TabTitle = _Title;
-                }
-                else
-                {
-                    TabTitle = _Title + " - " + AppSettings.Title;
-                }
-
-
+                TabTitle = _Title;
+            }
+            else
+            {
+                TabTitle = _Title + " - " + AppSettingsTitle;
             }
         }
+    }
 
+    protected override async Task OnInitializedAsync()
+    {
+        var appSettings = await AppSettingsDataService.GetClientAppSettings();
+        AppSettingsTitle = appSettings != null ? appSettings.Title : "";
 
-        protected override void OnInitialized()
+        if (NavigationManager != null)
         {
-            if (NavigationManager != null)
-            {
-                NavigationManager.LocationChanged += HandleLocationChanged;
-                Title = GetTitle(NavigationManager.Uri);
-                StateHasChanged();
-
-            }
-        }
-
-        private void HandleLocationChanged(object? sender, LocationChangedEventArgs e)
-        {
-            Title = GetTitle(e.Location);
+            NavigationManager.LocationChanged += HandleLocationChanged;
+            Title = GetTitle(NavigationManager.Uri);
             StateHasChanged();
         }
+    }
 
-        private void ToggleNavMenu()
+    private void HandleLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        Title = GetTitle(e.Location);
+        StateHasChanged();
+    }
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    private string GetTitle(string location)
+    {
+        var title = AppSettingsTitle;
+        if (location.ToLower().EndsWith("/members"))
         {
-            collapseNavMenu = !collapseNavMenu;
+            title = "Members";
+        }
+        if(Regex.Match(location, ".*\\/person\\/\\d+$").Success)
+        {
+            title = "Person Details";
+        }
+        if (location.ToLower().EndsWith("/birthdays"))
+        {
+            title = "Birthdays";
+        }
+        if (location.ToLower().EndsWith("/honors"))
+        {
+            title = "Honors";
+        }
+        if (location.ToLower().EndsWith("/honorarymembers"))
+        {
+            title = "Honorary Members";
+        }
+        if (location.ToLower().EndsWith("/otherpeople"))
+        {
+            title = "Other People";
         }
 
-        private static string GetTitle(string location)
-        {
-            var title = AppSettings.Title;
-            if (location.ToLower().EndsWith("members"))
-            {
-                title = "Members";
-            }
-
-            return title;
-        }
+        return title;
     }
 }
