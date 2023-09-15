@@ -3,6 +3,7 @@
 html,
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 16px;
 }
 
 h1:focus {
@@ -29,7 +30,7 @@ a,
 }
 
 .content {
-    padding-top: 0.4rem;
+    padding-top: 0.6rem;
 }
 
 .valid.modified:not([type="checkbox"]) {

@@ -1,6 +1,6 @@
 @page "/members"
 
-@if (Persons == null)
+@if (Members == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -14,7 +14,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var person in Persons)
+            @foreach (var person in Members)
             {
                 <tr @onclick=@(e => PersonClicked(person.PersonId)) style="cursor: pointer;">
                     <td>@person.LastName</td>
