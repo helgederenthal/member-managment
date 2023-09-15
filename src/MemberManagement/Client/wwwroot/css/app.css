@@ -3,7 +3,6 @@
 html,
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  line-height: 16px;
 }
 
 h1:focus {
@@ -111,4 +110,8 @@ a,
 
 .table-primary {
   --bs-table-bg: rgb(150, 200, 150);
+}
+
+.table > :not(caption) > * > * {
+    padding: 0.2rem 0.5rem
 }

@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Json;
+﻿using System.Globalization;
+using System.Net.Http.Json;
 using MemberManagement.Client.Services.Interfaces;
 using MemberManagement.Shared;
 
@@ -15,9 +16,23 @@ public class AppSettingsDataService : IAppSettingsDataService
         httpClient = _httpClient;
     }
 
-    public async Task<ClientAppSettings?> GetClientAppSettings()
+    public async Task<ClientAppSettings> GetClientAppSettings()
     {
-        clientAppSettings ??= await httpClient.GetFromJsonAsync<ClientAppSettings>("api/ClientAppSettings");            
+        if(clientAppSettings == null)
+        {
+            clientAppSettings = await httpClient.GetFromJsonAsync<ClientAppSettings>("api/ClientAppSettings");
+
+            clientAppSettings ??= new ClientAppSettings();
+
+            if (clientAppSettings.CultureInfo == string.Empty)
+            {
+                clientAppSettings.CultureInfoObject = CultureInfo.CurrentCulture;
+            }
+            else
+            {
+                clientAppSettings.CultureInfoObject = new CultureInfo(clientAppSettings.CultureInfo);
+            }
+        }
 
         return clientAppSettings;
     }

@@ -4,5 +4,5 @@ namespace MemberManagement.Client.Services.Interfaces;
 
 public interface IAppSettingsDataService
 {
-    Task<ClientAppSettings?> GetClientAppSettings();
+    Task<ClientAppSettings> GetClientAppSettings();
 }
