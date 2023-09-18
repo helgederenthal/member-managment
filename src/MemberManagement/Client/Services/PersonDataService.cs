@@ -6,40 +6,49 @@ namespace MemberManagement.Client.Services;
 
 public class PersonDataService : IPersonDataService
 {
+    private readonly AppSettings _appSettings;
     private readonly HttpClient _httpClient;
+    private List<Person>? Persons { get; set; } = default;
+    private DateTime PersonsExpiration { get; set; }
 
-    public PersonDataService(HttpClient httpClient)
+    public PersonDataService(AppSettings appSettings, HttpClient httpClient)
     {
+        _appSettings = appSettings;
         _httpClient = httpClient;
     }
 
-    public Task<IEnumerable<Person>> GetAdditionalPersons()
+    public async Task<IEnumerable<Person>?> GetAdditionalPersons()
     {
-        throw new NotImplementedException();
+        await EnsureCacheValid();
+        return await GetAllPersons();
     }
 
-    public async Task<IEnumerable<Person>> GetAllPersons()
+    public async Task<IEnumerable<Person>?> GetAllPersons()
     {
-        List<Person> allPersons = new List<Person>();
-
-        List<Person>? persons = await _httpClient.GetFromJsonAsync<List<Person>>("api/Person");
-        if (persons != null)
-        {
-            persons = persons.OrderBy((p) => $"{p.LastName}{p.FirstName}").ToList();
-            allPersons = persons;
-        }
-
-        return allPersons;
+        await EnsureCacheValid();
+        return Persons?.OrderBy((p) => $"{p.LastName}{p.FirstName}").ToList();
     }
 
-    public async Task<IEnumerable<Person>> GetMembers()
+    public async Task<IEnumerable<Person>?> GetMembers()
     {
+        await EnsureCacheValid();
         // ToDo: Do IsMember Calculation when Mandates Stuff is available
         return await GetAllPersons();
     }
 
     public async Task<Person?> GetPerson(int id)
     {
-        return await _httpClient.GetFromJsonAsync<Person>($"api/Person/{id}");
+        await EnsureCacheValid();
+        return Persons?.FirstOrDefault(p => p.PersonId == id);
+    }
+
+    private async Task EnsureCacheValid()
+    {
+        Console.WriteLine(DateTime.Now);
+        if (Persons == null || DateTime.Now > PersonsExpiration)
+        {
+            Persons = await _httpClient.GetFromJsonAsync<List<Person>>("api/Person");
+            PersonsExpiration = DateTime.Now.AddSeconds(_appSettings.CacheExpiration);
+        }        
     }
 }

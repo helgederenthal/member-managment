@@ -16,7 +16,7 @@ public partial class MemberList
 
     protected override async Task OnInitializedAsync()
     {
-        Members = (await PersonDataService.GetMembers()).ToList();
+        Members = (await PersonDataService.GetMembers())?.ToList();
     }
 
     private void PersonClicked(int id)
