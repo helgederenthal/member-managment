@@ -6,6 +6,6 @@ namespace MemberManagement.Shared
     {
         public string Title { get; set; } = default!;
         public string CultureInfo { get; set; } = default!;
-        public CultureInfo CultureInfoObject { get; set; } = default!;
+        public int CacheExpiration { get; set; } = 0;
     }
 }
