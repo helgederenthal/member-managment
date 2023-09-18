@@ -109,7 +109,8 @@ a,
 }
 
 .table-primary {
-  --bs-table-bg: rgb(150, 200, 150);
+    --bs-table-bg: rgb(0, 70, 0);
+    color: rgb(235 235 235);
 }
 
 .table > :not(caption) > * > * {
