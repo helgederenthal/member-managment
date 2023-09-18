@@ -9,10 +9,15 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 // Http Client
-builder.Services.AddSingleton(new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+var httpClient = new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) };
+builder.Services.AddSingleton(httpClient);
+
+// App Settings
+AppSettings appSettings = new AppSettings(httpClient);
+await appSettings.Init();
+builder.Services.AddSingleton(appSettings);
 
 // Data Services
-builder.Services.AddSingleton<IAppSettingsDataService, AppSettingsDataService>();
 builder.Services.AddSingleton<IPersonDataService, PersonDataService>();
 
 await builder.Build().RunAsync();

@@ -1,4 +1,4 @@
-using MemberManagement.Client.Services.Interfaces;
+using MemberManagement.Client.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using System.Text.RegularExpressions;
@@ -14,11 +14,9 @@ public partial class NavMenu
     NavigationManager NavigationManager { get; set; } = default!;
 
     [Inject]
-    IAppSettingsDataService AppSettingsDataService { get; set; } = default!;
+    AppSettings AppSettings { get; set; } = default!;
 
     private string TabTitle { get; set; } = "";
-
-    private string AppSettingsTitle = "";
 
     private string _Title = "";
     public string Title
@@ -27,22 +25,19 @@ public partial class NavMenu
         set
         {
             _Title = value;
-            if (_Title == AppSettingsTitle)
+            if (_Title == AppSettings.Title)
             {
                 TabTitle = _Title;
             }
             else
             {
-                TabTitle = _Title + " - " + AppSettingsTitle;
+                TabTitle = _Title + " - " + AppSettings.Title;
             }
         }
     }
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        var appSettings = await AppSettingsDataService.GetClientAppSettings();
-        AppSettingsTitle = appSettings != null ? appSettings.Title : "";
-
         if (NavigationManager != null)
         {
             NavigationManager.LocationChanged += HandleLocationChanged;
@@ -64,12 +59,12 @@ public partial class NavMenu
 
     private string GetTitle(string location)
     {
-        var title = AppSettingsTitle;
+        var title = AppSettings.Title;
         if (location.ToLower().EndsWith("/members"))
         {
             title = "Members";
         }
-        if(Regex.Match(location, ".*\\/person\\/\\d+$").Success)
+        if (Regex.Match(location, ".*\\/person\\/\\d+$").Success)
         {
             title = "Person Details";
         }
