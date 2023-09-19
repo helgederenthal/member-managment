@@ -44,7 +44,6 @@ public class PersonDataService : IPersonDataService
 
     private async Task EnsureCacheValid()
     {
-        Console.WriteLine(DateTime.Now);
         if (Persons == null || DateTime.Now > PersonsExpiration)
         {
             Persons = await _httpClient.GetFromJsonAsync<List<Person>>("api/Person");
