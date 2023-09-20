@@ -1,20 +1,4 @@
-using global::System;
-using global::System.Collections.Generic;
-using global::System.Linq;
-using global::System.Threading.Tasks;
 using global::Microsoft.AspNetCore.Components;
-using System.Net.Http;
-using System.Net.Http.Json;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.Web.Virtualization;
-using Microsoft.AspNetCore.Components.WebAssembly.Http;
-using Microsoft.JSInterop;
-using MemberManagement.Client;
-using MemberManagement.Client.Shared;
-using MemberManagement.Client.Components;
-using MemberManagement.Client.Components.Icons;
 using MemberManagement.Client.Services.Interfaces;
 using MemberManagement.Client.Services;
 using MemberManagement.Shared;
@@ -55,6 +39,23 @@ namespace MemberManagement.Client.Components
         private void EditButtonClicked()
         {
             NavigationManager.NavigateTo("/person/" + Id + "/edit", false);
+        }
+
+        private static int GetAnniversary(DateTime? startDate, DateTime anniversaryAt)
+        {
+            if(startDate != null)
+            {
+                // Calculate the age.
+                var age = anniversaryAt.Year - ((DateTime)startDate).Year;
+
+                // Go back to the year in which the person was born in case of a leap year
+                if (((DateTime)startDate).Date > anniversaryAt.AddYears(-age)) age--;
+
+                return age;
+            }
+
+            return 0;
+            
         }
     }
 }

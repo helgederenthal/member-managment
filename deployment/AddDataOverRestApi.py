@@ -1,15 +1,17 @@
 import csv
+import json
 import os
 import requests
 from datetime import datetime
 
 """
 Reads data from csv files and writes it to a running rest api.
-
-Dates are expected as DD.MM.YYYY.
 """
 
 API_URL = "http://localhost:5015"
+
+MEMBERS_FILE = "%USERPROFILE%/Members.csv"
+
 PROPERTIES_MAPPING = {
             "lastname"    : "NACHNAME",
             "firstname"   : "VORNAME",
@@ -17,20 +19,25 @@ PROPERTIES_MAPPING = {
             "housenumber" : "NR",
             "postcode"    : "POSTL",
             "city"        : "ORT",
-            "dateofbirth" : "GEB.",
-            "joinedat"    : "EINTRITT",
-            # "exitedat"    : "exitedat"
+            "bornon"      : "GEB.",
+            "joinedon"    : "EINTRITT",
+            # "exitedon"    : "exitedon",
+            # "deceasedon"    : "deceasedon"
         }
 DATE_FORMAT = '%d.%m.%Y'
 
 def main():
-    membersFile = os.path.expandvars("%USERPROFILE%\Members.csv")
+    membersFile = os.path.expandvars(MEMBERS_FILE)
+
+    deleteExistingPersons()
 
     with open(membersFile, newline="", encoding="utf-8") as csvfile:
         spamreader = csv.reader(csvfile, delimiter=",", quotechar='"')
 
         firstrow = True
         columnIndices = {}
+
+        url = API_URL + "/api/Person"
 
         for row in spamreader:
             if firstrow:
@@ -40,10 +47,9 @@ def main():
                 print(columnIndices)
                 firstrow = False
             else:
-                url = API_URL + "/api/Person"
                 data = {}
                 for prop in PROPERTIES_MAPPING.keys():
-                    if prop in ["dateofbirth", "joinedat", "exitedat"]:
+                    if prop in ["bornon", "joinedon", "exitedon", "deceasedon"]:
                         if len(row[columnIndices[prop]]) > 0:
                             data[prop.lower()] = datetime.strptime(row[columnIndices[prop]], DATE_FORMAT).strftime('%Y-%m-%d')
                     else:
@@ -53,6 +59,12 @@ def main():
                     r = requests.post(url, json=data)
                     print(r.text)
 
+def deleteExistingPersons():
+    url = API_URL + "/api/Person"
+    persons = requests.get(url).content
+
+    for person in json.loads(persons):
+        requests.delete(url + "/" + str(person["personId"]))
 
 # Get index of string in array (case-insensitive)
 def getIndex(stringArray, searchString):

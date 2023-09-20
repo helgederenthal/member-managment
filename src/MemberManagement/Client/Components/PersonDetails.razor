@@ -1,6 +1,8 @@
 ﻿@if (Loading)
 {
-    <p><em>Loading...</em></p>
+    <div class="center-items">
+        <Spinner />
+    </div>
 }
 else
 {
@@ -22,10 +24,12 @@ else
             <table id="details-table" class="table table-bordered table-light">
                 <tbody>
                     <tr><td class="key-column">Address</td><td class="value-column">@Person.Street @Person.HouseNumber<br /> @Person.Postcode @Person.City</td></tr>
+                    <tr><td class="key-column">Gender</td><td class="value-column">@Person.Gender.ToString()</td></tr>
                     <tr><td class="key-column">Email</td><td class="value-column">@Person.Email</td></tr>
-                    <tr><td class="key-column">Date of Birth</td><td class="value-column">@Person.DateOfBirth?.ToString("d", AppSettings.CultureInfo)</td></tr>
-                    <tr><td class="key-column">Joined at</td><td class="value-column">@Person.JoinedAt?.ToString("d", AppSettings.CultureInfo)</td></tr>
-                    <tr><td class="key-column">Exited at</td><td class="value-column">@Person.ExitedAt?.ToString("d", AppSettings.CultureInfo)</td></tr>
+                    <tr><td class="key-column">Born on</td><td class="value-column">@Person.BornOn?.ToString("d", AppSettings.CultureInfo) (@GetAnniversary(Person.BornOn, DateTime.Today))</td></tr>
+                    <tr><td class="key-column">Joined on</td><td class="value-column">@Person.JoinedOn?.ToString("d", AppSettings.CultureInfo) (@GetAnniversary(Person.JoinedOn, DateTime.Today))</td></tr>
+                    <tr><td class="key-column">Exited on</td><td class="value-column">@Person.ExitedOn?.ToString("d", AppSettings.CultureInfo)</td></tr>
+                    <tr><td class="key-column">Deceased on</td><td class="value-column">@Person.DeceasedOn?.ToString("d", AppSettings.CultureInfo)</td></tr>
                     <tr>
                         <td class="key-column">Student</td>
                         <td class="value-column">

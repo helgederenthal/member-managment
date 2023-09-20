@@ -3,3 +3,9 @@
     vertical-align: middle;
     width: 150px;
 }
+
+.center-items {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

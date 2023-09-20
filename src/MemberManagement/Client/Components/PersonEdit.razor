@@ -1,32 +1,38 @@
-﻿<table id="details-table" class="table table-bordered table-light">
-    <tbody>
-        <tr><td class="key-column">First Name</td><td class="value-column"></td></tr>
-        <tr><td class="key-column">Last Name</td><td class="value-column"></td></tr>
-        <tr><td class="key-column">Street</td><td class="value-column"></td></tr>
-        <tr><td class="key-column">Housenumber</td><td class="value-column"></td></tr>
-        <tr><td class="key-column">Postcode</td><td class="value-column"></td></tr>
-        <tr><td class="key-column">City</td><td class="value-column"></td></tr>
-        <tr><td class="key-column">Email</td><td class="value-column"></td></tr>
-        <tr><td class="key-column">Date of Birth</td><td class="value-column"></td></tr>
-        <tr><td class="key-column">Joined at</td><td class="value-column"></td></tr>
-        <tr><td class="key-column">Exited at</td><td class="value-column"></td></tr>
-        <tr>
-            <td class="key-column">Student</td>
-            <td class="value-column">
-                
-            </td>
-        </tr>
-        <tr>
-            <td class="key-column">Pensioner</td>
-            <td class="value-column">
-                
-            </td>
-        </tr>
-        <tr>
-            <td class="key-column">Pays Cash</td>
-            <td class="value-column">
-                
-            </td>
-        </tr>
-    </tbody>
-</table>
+﻿@using MemberManagement.Shared;
+@if (Person == null)
+{
+    <div class="center-items">
+        <Spinner />
+    </div>
+}
+else
+{
+    <EditForm Model="@Person">
+        <table id="details-table" class="table table-bordered table-light">
+            <tbody>
+                <tr><td class="key-column">Last Name</td><td class="value-column"><InputText @bind-Value="@Person.LastName" id="lastName"/></td></tr>
+                <tr><td class="key-column">First Name</td><td class="value-column"><InputText @bind-Value="@Person.FirstName" id="firstName"/></td></tr>
+                <tr><td class="key-column">Street</td><td class="value-column"><InputText @bind-Value="@Person.Street" id="street" /></td></tr>
+                <tr><td class="key-column">Housenumber</td><td class="value-column"><InputText @bind-Value="@Person.HouseNumber" id="houseNumber" /></td></tr>
+                <tr><td class="key-column">Postcode</td><td class="value-column"><InputNumber @bind-Value="@Person.Postcode" id="postcode" /></td></tr>
+                <tr><td class="key-column">City</td><td class="value-column"><InputText @bind-Value="@Person.City" id="city" /></td></tr>
+                <tr><td class="key-column">Gender</td><td class="value-column">
+                        <InputSelect @bind-Value="@Person.Gender">
+                            <option value="@(Gender.None)">@(Gender.None.ToString())</option>
+                            <option value="@(Gender.Male)">@(Gender.Male.ToString())</option>
+                            <option value="@(Gender.Female)">@(Gender.Female.ToString())</option>
+                            <option value="@(Gender.Diverse)">@(Gender.Diverse.ToString())</option>
+                        </InputSelect>
+                </td></tr>
+                <tr><td class="key-column">Email</td><td class="value-column"><InputText @bind-Value="@Person.Email" id="email" /></td></tr>
+                <tr><td class="key-column">Born on</td><td class="value-column"><InputDate @bind-Value="@Person.BornOn" id="bornOn" /></td></tr>
+                <tr><td class="key-column">Joined on</td><td class="value-column"><InputDate @bind-Value="@Person.JoinedOn" id="joinedOn" /></td></tr>
+                <tr><td class="key-column">Exited on</td><td class="value-column"><InputDate @bind-Value="@Person.ExitedOn" id="exitedOn" /></td></tr>
+                <tr><td class="key-column">Deceased on</td><td class="value-column"><InputDate @bind-Value="@Person.DeceasedOn" id="deceasedOn" /></td></tr>
+                <tr><td class="key-column">Student</td><td class="value-column"><InputCheckbox @bind-Value="@Person.IsStudent" id="isStudent" /></td></tr>
+                <tr><td class="key-column">Pensioner</td><td class="value-column"><InputCheckbox @bind-Value="@Person.IsPensioner" id="isPensioner" /></td></tr>
+                <tr><td class="key-column">Pays Cash</td><td class="value-column"><InputCheckbox @bind-Value="@Person.PaysCash" id="paysCash" /></td></tr>
+            </tbody>
+        </table>
+    </EditForm>
+}

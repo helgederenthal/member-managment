@@ -9,31 +9,35 @@ namespace MemberManagement.Shared
 
         [Required]
         [MinLength(1), MaxLength(50)]
-        public required string LastName { get; set; }
+        public required string LastName { get; set; } = string.Empty;
 
         [Required]
         [MinLength(1), MaxLength(50)]
-        public required string FirstName { get; set; }
+        public required string FirstName { get; set; } = string.Empty;
 
         [MaxLength(50)]
-        public string Street { get; set; } = "";
+        public string Street { get; set; } = string.Empty;
 
         [MaxLength(20)]
-        public string HouseNumber { get; set; } = "";
+        public string HouseNumber { get; set; } = string.Empty;
 
         public int Postcode { get; set; } = 0;
 
         [MaxLength(50)]
-        public string City { get; set; } = "";
+        public string City { get; set; } = string.Empty;
+
+        public Gender Gender { get; set; } = Gender.None;
 
         [MaxLength(250)]
-        public string Email { get; set; } = "";
+        public string Email { get; set; } = string.Empty;
 
-        public DateTime? DateOfBirth { get; set; }
+        public DateTime? BornOn { get; set; }
 
-        public DateTime? JoinedAt { get; set; }
+        public DateTime? JoinedOn { get; set; }
 
-        public DateTime? ExitedAt { get; set; }
+        public DateTime? ExitedOn { get; set; }
+
+        public DateTime? DeceasedOn { get; set; }
 
         public bool PaysCash { get; set; } = false;
 
