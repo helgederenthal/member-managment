@@ -64,9 +64,13 @@ public partial class NavMenu
         {
             title = "Members";
         }
-        if (Regex.Match(location, ".*\\/person\\/\\d+$").Success)
+        if (Regex.Match(location, ".*\\/person\\/\\d+(?:\\?.+)?$").Success)
         {
             title = "Person Details";
+        }
+        if (Regex.Match(location, ".*\\/person\\/\\d+/edit(?:\\?.+)?$").Success)
+        {
+            title = "Edit Person";
         }
         if (location.ToLower().EndsWith("/birthdays"))
         {

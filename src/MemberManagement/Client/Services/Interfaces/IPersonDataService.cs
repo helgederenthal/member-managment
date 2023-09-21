@@ -8,4 +8,5 @@ public interface IPersonDataService
     Task<IEnumerable<Person>?> GetMembers();
     Task<IEnumerable<Person>?> GetAdditionalPersons();
     Task<Person?> GetPerson(int id);
+    Task UpdatePerson(Person person);
 }

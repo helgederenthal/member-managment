@@ -3,6 +3,7 @@
 html,
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --bs-primary: #006600;
 }
 
 h1:focus {
@@ -15,17 +16,67 @@ a,
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #006600;
+    border-color: #006600;
 }
 
-.btn:focus,
+.btn-primary:hover {
+    background-color: #228822;
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: #006600;
+    border-color: #006600;
+}
+
+.btn-danger:hover {
+    background-color: #228822;
+}
+
+/*.btn:focus,
 .btn:active:focus,
 .btn-link.nav-link:focus,
 .form-control:focus,
 .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    background-color: #228822;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #228822;
+}*/
+
+.btn-primary:active {
+    background-color: #228822;
+    border-color: #228822;
+}
+
+.btn-primary:focus {
+    background-color: #228822;
+    border-color: #228822;
+    box-shadow: 0 0 0 .2rem #fff, 0 0 0 .35rem #228822;
+}
+
+.btn-primary:active:focus {
+    outline: 0;
+    box-shadow: 0 0 0 .2rem #fff, 0 0 0 .35rem #228822;
+}
+
+/**
+* Remove focus styles for non-keyboard focus.
+*/
+:focus:not(:focus-visible) {
+    outline: 0;
+    box-shadow: none;
+}
+
+/**
+ * Cross-browser styles for explicit focus via 
+ * keyboard-based (eg Tab) navigation or the
+ * .focus-visible utility class.
+ */
+:focus,
+.focus-visible:focus:not(:focus-visible) {
+    outline: 0;
+    /*box-shadow: 0 0 0 .2rem #fff, 0 0 0 .35rem #999;*/
 }
 
 .content {
@@ -92,9 +143,9 @@ a,
 }
 
 .loading-progress circle:last-child {
-  stroke: #1b6ec2;
-  stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.8), 500%;
-  transition: stroke-dasharray 0.05s ease-in-out;
+    stroke: #006600;
+    stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.8), 500%;
+    transition: stroke-dasharray 0.05s ease-in-out;
 }
 
 .loading-progress-text {
@@ -109,7 +160,8 @@ a,
 }
 
 .table-primary {
-  --bs-table-bg: rgb(150, 200, 150);
+    --bs-table-bg: rgb(0, 70, 0);
+    color: rgb(235 235 235);
 }
 
 .table > :not(caption) > * > * {

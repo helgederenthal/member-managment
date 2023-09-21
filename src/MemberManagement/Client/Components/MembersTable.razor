@@ -1,14 +1,14 @@
-@page "/members"
-
-@if (Members == null)
+﻿@if (Members == null)
 {
-    <p><em>Loading...</em></p>
+    <div class="center-items">
+        <Spinner />
+    </div>
 }
 else
 {
-    <table class="table table-light">
+    <table class="table table-light table-striped">
         <thead class="table-primary">
-            <tr>
+            <tr class="testclass">
                 <th>Last Name</th>
                 <th>First Name</th>
             </tr>
