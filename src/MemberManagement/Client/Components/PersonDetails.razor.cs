@@ -1,7 +1,8 @@
-using global::Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 using MemberManagement.Client.Services.Interfaces;
 using MemberManagement.Client.Services;
 using MemberManagement.Shared;
+using MemberManagement.Client.Shared;
 
 namespace MemberManagement.Client.Components
 {
@@ -17,8 +18,8 @@ namespace MemberManagement.Client.Components
         [Inject]
         private IPersonDataService PersonDataService { get; set; } = default!;
         [Inject]
-        private NavigationManager NavigationManager { get; set; } = default!;
-        
+        private Utilities Utilities { get; set; } = default!;
+
         private bool Loading { get; set; } = true;
 
         public Person? Person { get; set; } = default!;
@@ -38,7 +39,7 @@ namespace MemberManagement.Client.Components
 
         private void EditButtonClicked()
         {
-            NavigationManager.NavigateTo("/person/" + Id + "/edit", false);
+            Utilities.NavigateTo("/person/" + Id + "/edit");
         }
 
         private static int GetAnniversary(DateTime? startDate, DateTime anniversaryAt)

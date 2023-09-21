@@ -1,4 +1,6 @@
 ﻿using System.Net.Http.Json;
+using System.Text;
+using System.Text.Json;
 using MemberManagement.Client.Services.Interfaces;
 using MemberManagement.Shared;
 
@@ -40,6 +42,17 @@ public class PersonDataService : IPersonDataService
     {
         await EnsureCacheValid();
         return Persons?.FirstOrDefault(p => p.PersonId == id);
+    }
+
+    public async Task UpdatePerson(Person person)
+    {
+        // Write to api
+        var personJson = new StringContent(JsonSerializer.Serialize(person), Encoding.UTF8, "application/json");
+        await _httpClient.PutAsync($"api/Person/{person.PersonId}", personJson);
+
+        // Write to cache
+        var oldPerson = await GetPerson(person.PersonId);
+        oldPerson?.Copy(person);
     }
 
     private async Task EnsureCacheValid()

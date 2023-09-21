@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using MemberManagement.Client.Services.Interfaces;
 using MemberManagement.Shared;
+using MemberManagement.Client.Shared;
 
 namespace MemberManagement.Client.Components
 {
@@ -8,9 +9,8 @@ namespace MemberManagement.Client.Components
     {
         [Inject]
         private IPersonDataService PersonDataService { get; set; } = default!;
-
         [Inject]
-        private NavigationManager NavigationManager { get; set; } = default!;
+        private Utilities Utilities { get; set; } = default!;
 
         public List<Person>? Members { get; set; } = default!;
 
@@ -21,7 +21,7 @@ namespace MemberManagement.Client.Components
 
         private void PersonClicked(int id)
         {
-            NavigationManager.NavigateTo("/person/" + id, false);
+            Utilities.NavigateTo("/person/" + id + "?origin=members");
         }
     }
 }

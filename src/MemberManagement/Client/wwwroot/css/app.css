@@ -3,6 +3,7 @@
 html,
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --bs-primary: #006600;
 }
 
 h1:focus {
@@ -15,9 +16,13 @@ a,
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #006600;
+    border-color: #006600;
+}
+
+.btn-primary:hover {
+    background-color: #228822;
 }
 
 .btn:focus,
@@ -25,7 +30,8 @@ a,
 .btn-link.nav-link:focus,
 .form-control:focus,
 .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    background-color: #228822;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #228822;
 }
 
 .content {

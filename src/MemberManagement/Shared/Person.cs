@@ -60,5 +60,54 @@ namespace MemberManagement.Shared
             DepartmentsParticipating.Add(department);
             department.Participants.Add(this);
         }
+
+        public Person Clone()
+        {
+            var person = new Person
+            {
+                PersonId = PersonId,
+                LastName = LastName,
+                FirstName = FirstName,
+                Street = Street,
+                HouseNumber = HouseNumber,
+                Postcode = Postcode,
+                City = City,
+                Gender = Gender,
+                Email = Email,
+                BornOn = BornOn,
+                JoinedOn = JoinedOn,
+                ExitedOn = ExitedOn,
+                DeceasedOn = DeceasedOn,
+                IsStudent = IsStudent,
+                IsPensioner = IsPensioner,
+                PaysCash = PaysCash,
+                DepartmentsTraining = DepartmentsTraining,
+                DepartmentsParticipating = DepartmentsParticipating
+            };
+
+            return person;
+        }
+
+        public void Copy(Person person)
+        {
+            PersonId = person.PersonId;
+            LastName = person.LastName;
+            FirstName = person.FirstName;
+            Street = person.Street;
+            HouseNumber = person.HouseNumber;
+            Postcode = person.Postcode;
+            City = person.City;
+            Gender = person.Gender;
+            Email = person.Email;
+            BornOn = person.BornOn;
+            JoinedOn = person.JoinedOn;
+            ExitedOn = person.ExitedOn;
+            DeceasedOn = person.DeceasedOn;
+            IsStudent = person.IsStudent;
+            IsPensioner = person.IsPensioner;
+            PaysCash = person.PaysCash;
+            DepartmentsTraining = person.DepartmentsTraining;
+            DepartmentsParticipating = person.DepartmentsParticipating;
+        }
     }
 }
