@@ -9,35 +9,35 @@ namespace MemberManagement.Shared
 
         [Required]
         [MinLength(1), MaxLength(50)]
-        public required string FirstName { get; set; }
+        public required string LastName { get; set; } = string.Empty;
 
         [Required]
         [MinLength(1), MaxLength(50)]
-        public required string LastName { get; set; }
+        public required string FirstName { get; set; } = string.Empty;
 
-        [Required]
-        [MinLength(1), MaxLength(50)]
-        public required string Street { get; set; }
+        [MaxLength(50)]
+        public string Street { get; set; } = string.Empty;
 
-        [Required]
-        [MinLength(1), MaxLength(20)]
-        public required string HouseNumber { get; set; }
+        [MaxLength(20)]
+        public string HouseNumber { get; set; } = string.Empty;
 
-        [Required]
-        public int? Postcode { get; set; }
+        public int Postcode { get; set; } = 0;
 
-        [Required]
-        [MinLength(1), MaxLength(50)]
-        public required string City { get; set; }
+        [MaxLength(50)]
+        public string City { get; set; } = string.Empty;
 
-        [MinLength(1), MaxLength(250)]
-        public string? Email { get; set; }
+        public Gender Gender { get; set; } = Gender.None;
 
-        public DateTime? DateOfBirth { get; set; }
+        [MaxLength(250)]
+        public string Email { get; set; } = string.Empty;
 
-        public DateTime? JoinedAt { get; set; }
+        public DateTime? BornOn { get; set; }
 
-        public DateTime? ExitedAt { get; set; }
+        public DateTime? JoinedOn { get; set; }
+
+        public DateTime? ExitedOn { get; set; }
+
+        public DateTime? DeceasedOn { get; set; }
 
         public bool PaysCash { get; set; } = false;
 
@@ -59,6 +59,55 @@ namespace MemberManagement.Shared
         {
             DepartmentsParticipating.Add(department);
             department.Participants.Add(this);
+        }
+
+        public Person Clone()
+        {
+            var person = new Person
+            {
+                PersonId = PersonId,
+                LastName = LastName,
+                FirstName = FirstName,
+                Street = Street,
+                HouseNumber = HouseNumber,
+                Postcode = Postcode,
+                City = City,
+                Gender = Gender,
+                Email = Email,
+                BornOn = BornOn,
+                JoinedOn = JoinedOn,
+                ExitedOn = ExitedOn,
+                DeceasedOn = DeceasedOn,
+                IsStudent = IsStudent,
+                IsPensioner = IsPensioner,
+                PaysCash = PaysCash,
+                DepartmentsTraining = DepartmentsTraining,
+                DepartmentsParticipating = DepartmentsParticipating
+            };
+
+            return person;
+        }
+
+        public void Copy(Person person)
+        {
+            PersonId = person.PersonId;
+            LastName = person.LastName;
+            FirstName = person.FirstName;
+            Street = person.Street;
+            HouseNumber = person.HouseNumber;
+            Postcode = person.Postcode;
+            City = person.City;
+            Gender = person.Gender;
+            Email = person.Email;
+            BornOn = person.BornOn;
+            JoinedOn = person.JoinedOn;
+            ExitedOn = person.ExitedOn;
+            DeceasedOn = person.DeceasedOn;
+            IsStudent = person.IsStudent;
+            IsPensioner = person.IsPensioner;
+            PaysCash = person.PaysCash;
+            DepartmentsTraining = person.DepartmentsTraining;
+            DepartmentsParticipating = person.DepartmentsParticipating;
         }
     }
 }

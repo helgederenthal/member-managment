@@ -1,5 +1,3 @@
-using System.Globalization;
-
 namespace MemberManagement.Shared
 {
     public class ClientAppSettings

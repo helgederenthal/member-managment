@@ -1,0 +1,9 @@
+﻿.edit-icon {
+    color: rgb(80, 80, 80);
+    margin-top: -3px;
+}
+
+.edit-icon:hover {
+    color: rgb(150, 150, 150);
+    cursor: pointer;
+}

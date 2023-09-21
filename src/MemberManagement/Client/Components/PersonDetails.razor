@@ -1,0 +1,80 @@
+﻿@if (Loading)
+{
+    <div class="center-items">
+        <Spinner />
+    </div>
+}
+else
+{
+    @if (Person != null)
+    {
+        <div>
+            @if(ShowBackButton)
+            {
+                <BackButton />
+            }
+
+            <span class="name">
+                @(Person.LastName + ", " + Person.FirstName
+                    )
+            </span>
+            <span @onclick="EditButtonClicked">
+                <EditIcon />
+            </span>
+            <table id="details-table" class="table table-bordered table-light">
+                <tbody>
+                    <tr><td class="key-column">Address</td><td class="value-column">@Person.Street @Person.HouseNumber<br /> @Person.Postcode @Person.City</td></tr>
+                    <tr><td class="key-column">Gender</td><td class="value-column">@Person.Gender.ToString()</td></tr>
+                    <tr><td class="key-column">Email</td><td class="value-column">@Person.Email</td></tr>
+                    <tr><td class="key-column">Born on</td><td class="value-column">@Person.BornOn?.ToString("d", AppSettings.CultureInfo) (@GetAnniversary(Person.BornOn, DateTime.Today))</td></tr>
+                    <tr><td class="key-column">Joined on</td><td class="value-column">@Person.JoinedOn?.ToString("d", AppSettings.CultureInfo) (@GetAnniversary(Person.JoinedOn, DateTime.Today))</td></tr>
+                    <tr><td class="key-column">Exited on</td><td class="value-column">@Person.ExitedOn?.ToString("d", AppSettings.CultureInfo)</td></tr>
+                    <tr><td class="key-column">Deceased on</td><td class="value-column">@Person.DeceasedOn?.ToString("d", AppSettings.CultureInfo)</td></tr>
+                    <tr>
+                        <td class="key-column">Student</td>
+                        <td class="value-column">
+                            @if (Person.IsStudent)
+                            {
+                                <CheckIcon />
+                            }
+                            else
+                            {
+                                <BanIcon />
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="key-column">Pensioner</td>
+                        <td class="value-column">
+                            @if (Person.IsPensioner)
+                            {
+                                <CheckIcon />
+                            }
+                            else
+                            {
+                                <BanIcon />
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="key-column">Pays Cash</td>
+                        <td class="value-column">
+                            @if (Person.PaysCash)
+                            {
+                                <CheckIcon />
+                            }
+                            else
+                            {
+                                <BanIcon />
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p>Person with id "@Id" not found!</p>
+    }
+}
