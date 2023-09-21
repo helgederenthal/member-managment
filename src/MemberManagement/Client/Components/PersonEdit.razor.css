@@ -22,4 +22,10 @@
 
 .buttons {
     margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cancel-button {
+    margin-right: 10px;
 }

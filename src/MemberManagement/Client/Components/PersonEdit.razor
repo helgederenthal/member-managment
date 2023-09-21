@@ -37,7 +37,13 @@ else
             </tbody>
         </table>
         <div class="buttons">
-            <button type="submit" class="btn btn-primary">@SubmitButtonText</button>
+            <div class="buttons-left">
+                <button type="button" @onclick="@CancelButtonClicked" class="btn btn-outline-danger cancel-button">Cancel</button>
+                <button type="button" @onclick="@ResetButtonClicked" class="btn btn-outline-secondary">Reset</button>
+            </div>
+            <div class="buttons-right">
+                <button type="submit" class="btn btn-primary">@SubmitButtonText</button>
+            </div>
         </div>
     </EditForm>
 }

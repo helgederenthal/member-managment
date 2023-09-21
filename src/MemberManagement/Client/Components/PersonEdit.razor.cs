@@ -53,5 +53,29 @@ namespace MemberManagement.Client.Components
         {
 
         }
+
+        public void CancelButtonClicked()
+        {
+            if (EditedPerson != null)
+            {
+                Utilities.NavigateTo($"person/{EditedPerson.PersonId}");
+            }
+        }
+
+        public void ResetButtonClicked()
+        {
+            if(EditedPerson != null)
+            {
+                if(Person != null)
+                {
+                    EditedPerson.Copy(Person);
+                }
+                else
+                {
+                    EditedPerson = new Person { LastName = "", FirstName = "" };
+                }
+                
+            }
+        }
     }
 }

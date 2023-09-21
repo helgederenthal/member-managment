@@ -25,13 +25,58 @@ a,
     background-color: #228822;
 }
 
-.btn:focus,
+.btn-danger {
+    color: #fff;
+    background-color: #006600;
+    border-color: #006600;
+}
+
+.btn-danger:hover {
+    background-color: #228822;
+}
+
+/*.btn:focus,
 .btn:active:focus,
 .btn-link.nav-link:focus,
 .form-control:focus,
 .form-check-input:focus {
     background-color: #228822;
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #228822;
+}*/
+
+.btn-primary:active {
+    background-color: #228822;
+    border-color: #228822;
+}
+
+.btn-primary:focus {
+    background-color: #228822;
+    border-color: #228822;
+    box-shadow: 0 0 0 .2rem #fff, 0 0 0 .35rem #228822;
+}
+
+.btn-primary:active:focus {
+    outline: 0;
+    box-shadow: 0 0 0 .2rem #fff, 0 0 0 .35rem #228822;
+}
+
+/**
+* Remove focus styles for non-keyboard focus.
+*/
+:focus:not(:focus-visible) {
+    outline: 0;
+    box-shadow: none;
+}
+
+/**
+ * Cross-browser styles for explicit focus via 
+ * keyboard-based (eg Tab) navigation or the
+ * .focus-visible utility class.
+ */
+:focus,
+.focus-visible:focus:not(:focus-visible) {
+    outline: 0;
+    /*box-shadow: 0 0 0 .2rem #fff, 0 0 0 .35rem #999;*/
 }
 
 .content {
