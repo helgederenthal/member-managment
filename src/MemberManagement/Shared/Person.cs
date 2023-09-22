@@ -21,7 +21,7 @@ namespace MemberManagement.Shared
         [MaxLength(20, ErrorMessage = "HouseNumber is too long (max. 20 characters)!")]
         public string HouseNumber { get; set; } = string.Empty;
 
-        public int Postcode { get; set; } = 0;
+        public int? Postcode { get; set; } = 0;
 
         [MaxLength(50, ErrorMessage = "City is too long (max. 50 characters)!")]
         public string City { get; set; } = string.Empty;
