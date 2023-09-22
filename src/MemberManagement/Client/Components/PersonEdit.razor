@@ -10,6 +10,7 @@ else
     <EditForm Model="@EditedPerson"
         OnValidSubmit="@HandleValidSubmit"
         OnInvalidSubmit="@HandleInvalidSubmit">
+        <DataAnnotationsValidator />
         <table id="edit-table" class="table table-bordered table-light">
             <tbody>
                 <tr><td class="key-column">Last Name</td><td class="value-column"><InputText @bind-Value="@EditedPerson.LastName" id="lastName" /></td></tr>
@@ -36,6 +37,7 @@ else
                 <tr><td class="key-column">Pays Cash</td><td class="value-column"><InputCheckbox @bind-Value="@EditedPerson.PaysCash" id="paysCash" /></td></tr>
             </tbody>
         </table>
+        <ValidationSummary />
         <div class="buttons">
             <div class="buttons-left">
                 <button type="button" @onclick="@CancelButtonClicked" class="btn btn-outline-danger cancel-button">Cancel</button>

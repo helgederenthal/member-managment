@@ -8,27 +8,27 @@ namespace MemberManagement.Shared
         public int PersonId { get; set; }
 
         [Required]
-        [MinLength(1), MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "LastName is too long (max. 50 characters)!")]
         public required string LastName { get; set; } = string.Empty;
 
         [Required]
-        [MinLength(1), MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "FirstName is too long (max. 50 characters)!")]
         public required string FirstName { get; set; } = string.Empty;
 
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "Street is too long (max. 50 characters)!")]
         public string Street { get; set; } = string.Empty;
 
-        [MaxLength(20)]
+        [MaxLength(20, ErrorMessage = "HouseNumber is too long (max. 20 characters)!")]
         public string HouseNumber { get; set; } = string.Empty;
 
         public int Postcode { get; set; } = 0;
 
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "City is too long (max. 50 characters)!")]
         public string City { get; set; } = string.Empty;
 
         public Gender Gender { get; set; } = Gender.None;
 
-        [MaxLength(250)]
+        [MaxLength(250, ErrorMessage = "Email is too long (max. 250 characters)!")]
         public string Email { get; set; } = string.Empty;
 
         public DateTime? BornOn { get; set; }
