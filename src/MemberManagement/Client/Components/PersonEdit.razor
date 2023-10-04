@@ -8,8 +8,7 @@
 else
 {
     <EditForm Model="@EditedPerson"
-        OnValidSubmit="@HandleValidSubmit"
-        OnInvalidSubmit="@HandleInvalidSubmit">
+        OnValidSubmit="@HandleValidSubmit">
         <table id="edit-table" class="table table-bordered table-light">
             <tbody>
                 <tr><td class="key-column">Last Name</td><td class="value-column"><InputText @bind-Value="@EditedPerson.LastName" id="lastName" /></td></tr>

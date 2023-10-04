@@ -49,11 +49,6 @@ namespace MemberManagement.Client.Components
             }
         }
 
-        protected async Task HandleInvalidSubmit()
-        {
-
-        }
-
         public void CancelButtonClicked()
         {
             if (EditedPerson != null)

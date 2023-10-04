@@ -24,4 +24,11 @@ builder.Services.AddSingleton(appSettings);
 // Data Services
 builder.Services.AddSingleton<IPersonDataService, PersonDataService>();
 
+// Authentication
+builder.Services.AddOidcAuthentication(options =>
+{
+    builder.Configuration.Bind("Auth0", options.ProviderOptions);
+    options.ProviderOptions.ResponseType = "code";
+});
+
 await builder.Build().RunAsync();
