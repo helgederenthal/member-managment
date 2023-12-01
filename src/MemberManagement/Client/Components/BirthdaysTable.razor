@@ -1,0 +1,26 @@
+﻿@if (Members == null)
+{
+    <div class="center-items">
+        <Spinner />
+    </div>
+}
+else
+{
+    <table class="table table-light table-striped">
+        <thead class="table-primary">
+            <tr class="testclass">
+                <th>Last Name</th>
+                <th>First Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var person in Members)
+            {
+                <tr @onclick=@(e => PersonClicked(person.PersonId)) style="cursor: pointer;">
+                    <td>@person.LastName</td>
+                    <td>@person.FirstName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
