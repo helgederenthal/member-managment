@@ -46,6 +46,8 @@ public class PersonDataService : IPersonDataService
 
     public async Task UpdatePerson(Person person)
     {
+        person.Postcode ??= 0;
+
         // Write to api
         var personJson = new StringContent(JsonSerializer.Serialize(person), Encoding.UTF8, "application/json");
         await _httpClient.PutAsync($"api/Person/{person.PersonId}", personJson);
