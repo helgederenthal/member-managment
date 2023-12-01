@@ -8,16 +8,16 @@
 else
 {
     <EditForm Model="@EditedPerson"
-        OnValidSubmit="@HandleValidSubmit"
-        OnInvalidSubmit="@HandleInvalidSubmit">
+        OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
         <table id="edit-table" class="table table-bordered table-light">
             <tbody>
-                <tr><td class="key-column">Last Name</td><td class="value-column"><InputText @bind-Value="@EditedPerson.LastName" id="lastName" /></td></tr>
-                <tr><td class="key-column">First Name</td><td class="value-column"><InputText @bind-Value="@EditedPerson.FirstName" id="firstName" /></td></tr>
-                <tr><td class="key-column">Street</td><td class="value-column"><InputText @bind-Value="@EditedPerson.Street" id="street" /></td></tr>
-                <tr><td class="key-column">Housenumber</td><td class="value-column"><InputText @bind-Value="@EditedPerson.HouseNumber" id="houseNumber" /></td></tr>
-                <tr><td class="key-column">Postcode</td><td class="value-column"><InputNumber @bind-Value="@EditedPerson.Postcode" id="postcode" /></td></tr>
-                <tr><td class="key-column">City</td><td class="value-column"><InputText @bind-Value="@EditedPerson.City" id="city" /></td></tr>
+                <tr><td class="key-column">Last Name</td><td class="value-column"><InputText @bind-Value="@EditedPerson.LastName" id="lastName" /><ValidationMessage For="@(() => EditedPerson.LastName)"/></td></tr>
+                <tr><td class="key-column">First Name</td><td class="value-column"><InputText @bind-Value="@EditedPerson.FirstName" id="firstName" /><ValidationMessage For="@(() => EditedPerson.FirstName)" /></td></tr>
+                <tr><td class="key-column">Street</td><td class="value-column"><InputText @bind-Value="@EditedPerson.Street" id="street" /><ValidationMessage For="@(() => EditedPerson.Street)" /></td></tr>
+                <tr><td class="key-column">Housenumber</td><td class="value-column"><InputText @bind-Value="@EditedPerson.HouseNumber" id="houseNumber" /><ValidationMessage For="@(() => EditedPerson.HouseNumber)" /></td></tr>
+                <tr><td class="key-column">Postcode</td><td class="value-column"><InputNumber @bind-Value="@EditedPerson.Postcode" id="postcode" /><ValidationMessage For="@(() => EditedPerson.Postcode)" /></td></tr>
+                <tr><td class="key-column">City</td><td class="value-column"><InputText @bind-Value="@EditedPerson.City" id="city" /><ValidationMessage For="@(() => EditedPerson.City)" /></td></tr>
                 <tr><td class="key-column">Gender</td><td class="value-column">
                         <InputSelect @bind-Value="@EditedPerson.Gender">
                             <option value="@(Gender.None)">@(Gender.None.ToString())</option>
@@ -26,7 +26,7 @@ else
                             <option value="@(Gender.Diverse)">@(Gender.Diverse.ToString())</option>
                         </InputSelect>
                 </td></tr>
-                <tr><td class="key-column">Email</td><td class="value-column"><InputText @bind-Value="@EditedPerson.Email" id="email" /></td></tr>
+                <tr><td class="key-column">Email</td><td class="value-column"><InputText @bind-Value="@EditedPerson.Email" id="email" /><ValidationMessage For="@(() => EditedPerson.Email)" /></td></tr>
                 <tr><td class="key-column">Born on</td><td class="value-column"><InputDate @bind-Value="@EditedPerson.BornOn" id="bornOn" /></td></tr>
                 <tr><td class="key-column">Joined on</td><td class="value-column"><InputDate @bind-Value="@EditedPerson.JoinedOn" id="joinedOn" /></td></tr>
                 <tr><td class="key-column">Exited on</td><td class="value-column"><InputDate @bind-Value="@EditedPerson.ExitedOn" id="exitedOn" /></td></tr>
@@ -36,6 +36,7 @@ else
                 <tr><td class="key-column">Pays Cash</td><td class="value-column"><InputCheckbox @bind-Value="@EditedPerson.PaysCash" id="paysCash" /></td></tr>
             </tbody>
         </table>
+        <ValidationSummary />
         <div class="buttons">
             <div class="buttons-left">
                 <button type="button" @onclick="@CancelButtonClicked" class="btn btn-outline-danger cancel-button">Cancel</button>
