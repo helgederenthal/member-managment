@@ -12,7 +12,9 @@ namespace MemberManagement.Client.Components
         [Inject]
         private Utilities Utilities { get; set; } = default!;
 
-        public List<Person>? Members { get; set; } = default!;
+        public List<Tuple<Person, List<int>>>? Members { get; set; } = default!;
+
+        public List<int>? Anniversaries { get; set; } = default!;
 
         protected override async Task OnInitializedAsync()
         {
@@ -25,20 +27,43 @@ namespace MemberManagement.Client.Components
             Utilities.NavigateTo("/person/" + id + "?origin=birthdays");
         }
 
-        private static List<Person> FilterMembers(List<Person>? members)
+        private static List<Tuple<Person, List<int>>> FilterMembers(List<Person>? members)
         {
-            List<Person> birthdayHonors = new();
+            DateTime timespanStart = new(2024, 1, 1);
+            DateTime timespanEnd = new(2024, 12, 31);
 
-            List<int> birthdayYearsToHonor = new List<int>() { 50, 60, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120 };
+            List<Tuple<Person, List<int>>> birthdayHonors = new();
+
+            List<int> birthdayYearsToHonor = new() { 50, 60, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120 };
 
             if (members != null)
             {
                 foreach (Person person in members)
                 {
+                    if (person.BornOn != null)
+                    {
+                        List<int> honoredAnniversaries = new();
+                        var anniversaries = Utilities.GetAnniversariesOfDateInTimespan((DateTime)person.BornOn, timespanStart, timespanEnd);
+
+                        foreach (var anniversary in anniversaries)
+                        {
+                            if (birthdayYearsToHonor.Contains(anniversary))
+                            {
+                                honoredAnniversaries.Add(anniversary);
+                            }
+                        }
+
+                        if (honoredAnniversaries.Count > 0)
+                        {
+                            birthdayHonors.Add(new(person, honoredAnniversaries));
+                        }
+                    }
                 }
             }
 
-            return birthdayHonors;
+            var sortedList = birthdayHonors.OrderBy(x => x.Item1.BornOn.Value.Month).ThenBy(x => x.Item1.BornOn.Value.Day).ToList();
+
+            return sortedList;
         }
     }
 }

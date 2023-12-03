@@ -9,6 +9,10 @@ else
     <table class="table table-light table-striped">
         <thead class="table-primary">
             <tr class="testclass">
+                <th>Day</th>
+                <th>Month</th>
+                <th>Year</th>
+                <th>Age</th>
                 <th>Last Name</th>
                 <th>First Name</th>
             </tr>
@@ -16,9 +20,18 @@ else
         <tbody>
             @foreach (var person in Members)
             {
-                <tr @onclick=@(e => PersonClicked(person.PersonId)) style="cursor: pointer;">
-                    <td>@person.LastName</td>
-                    <td>@person.FirstName</td>
+                <tr @onclick=@(e => PersonClicked(person.Item1.PersonId)) style="cursor: pointer;">
+                    <td class="dateCell dayCell">@(person.Item1.BornOn?.Day).</td>
+                    <td class="dateCell monthCell">@(person.Item1.BornOn?.Month).</td>
+                    <td class="dateCell yearCell">@person.Item1.BornOn?.Year</td>
+                    <td class="ageCell">
+                        @foreach(var anniversary in person.Item2)
+                        {
+                            <span>@anniversary</span>
+                        }
+                    </td>
+                    <td>@person.Item1.LastName</td>
+                    <td>@person.Item1.FirstName</td>
                 </tr>
             }
         </tbody>
