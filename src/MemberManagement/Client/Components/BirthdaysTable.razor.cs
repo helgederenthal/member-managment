@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Components;
 using MemberManagement.Client.Services.Interfaces;
-using MemberManagement.Shared;
 using MemberManagement.Client.Shared;
+using MemberManagement.Shared;
+using Microsoft.AspNetCore.Components;
 
 namespace MemberManagement.Client.Components
 {
@@ -17,7 +17,7 @@ namespace MemberManagement.Client.Components
         protected override async Task OnInitializedAsync()
         {
             var AllMembers = (await PersonDataService.GetMembers())?.ToList();
-            Members = FilterMembers(AllMembers); 
+            Members = FilterMembers(AllMembers);
         }
 
         private void PersonClicked(int id)
@@ -28,6 +28,16 @@ namespace MemberManagement.Client.Components
         private static List<Person> FilterMembers(List<Person>? members)
         {
             List<Person> birthdayHonors = new();
+
+            List<int> birthdayYearsToHonor = new List<int>() { 50, 60, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120 };
+
+            if (members != null)
+            {
+                foreach (Person person in members)
+                {
+                }
+            }
+
             return birthdayHonors;
         }
     }
