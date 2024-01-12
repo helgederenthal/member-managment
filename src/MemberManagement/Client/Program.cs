@@ -17,7 +17,7 @@ builder.Services.AddSingleton(httpClient);
 builder.Services.AddSingleton<Utilities>();
 
 // App Settings
-AppSettings appSettings = new AppSettings(httpClient);
+AppSettings appSettings = new(httpClient);
 await appSettings.Init();
 builder.Services.AddSingleton(appSettings);
 

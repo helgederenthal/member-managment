@@ -1,0 +1,28 @@
+﻿.center-items {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.dateCell {
+    text-align: right;
+}
+
+.dayCell {
+    width: 50px;
+    padding-right: 15px;
+}
+
+.monthCell {
+    width: 50px;
+    padding-right: 23px;
+}
+
+.yearCell {
+    width: 50px;
+}
+
+.ageCell {
+    text-align: center;
+    width: 40px;
+}

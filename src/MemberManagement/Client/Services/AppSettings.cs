@@ -37,7 +37,6 @@ public class AppSettings
     public AppSettings(HttpClient _httpClient)
     {
         httpClient = _httpClient;
-
     }
 
     public async Task Init()
@@ -49,8 +48,6 @@ public class AppSettings
             if(clientAppSettings != null)
             {
                 appSettings = clientAppSettings;
-
-                
             }
         }
     }

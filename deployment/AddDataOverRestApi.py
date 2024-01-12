@@ -21,7 +21,7 @@ PROPERTIES_MAPPING = {
             "city"        : "ORT",
             "bornon"      : "GEB.",
             "joinedon"    : "EINTRITT",
-            # "exitedon"    : "exitedon",
+            "exitedon"    : "AUSTRITT",
             # "deceasedon"    : "deceasedon"
         }
 DATE_FORMAT = '%d.%m.%Y'
@@ -73,7 +73,6 @@ def getIndex(stringArray, searchString):
         if value.lower() == searchString.lower():
             return i
         i = i + 1
-
 
 if __name__ == "__main__":
     main()
